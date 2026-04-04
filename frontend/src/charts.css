@@ -1,0 +1,174 @@
+.charts-page {
+    padding: 18px;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.charts-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.charts-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.charts-subtitle {
+    margin: 6px 0 0;
+    opacity: 0.8;
+}
+
+.charts-selectWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 320px;
+
+}
+
+.charts-label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.charts-select {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    outline: none;
+    background: #fff;
+    color: #111;
+}
+
+.charts-select:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.charts-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.charts-cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.charts-cardTitle {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: grey;
+}
+
+.charts-badge {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 0.85;
+    color: grey;
+}
+
+.charts-smallStat {
+    font-size: 13px;
+    opacity: 0.85;
+
+}
+.charts-smallStat-grey{
+    font-size: 13px;
+    opacity: 0.85;
+    color: #808080;
+
+}
+
+.charts-note {
+    margin-top: 8px;
+    font-size: 13px;
+    opacity: 0.8;
+    color: #808080;
+}
+
+.charts-chart {
+    width: 100%;
+}
+
+.charts-chart--bar {
+    height: 360px;
+}
+
+.charts-chart--line {
+    height: 320px;
+}
+
+.recharts-legend-item-text{
+    color: #808080;
+    padding: 2px;
+}
+
+
+.charts-tableWrap {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+}
+
+.charts-tableTitle {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.charts-tableScroll {
+    max-height: 1000px;
+    overflow: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.charts-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.charts-table thead th {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 18, 40, 0.85);
+    backdrop-filter: blur(6px);
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.charts-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+}
+
+.charts-table tbody tr:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+.charts-table tbody tr.isSelected {
+    background: rgba(255,255,255,0.10);
+    outline: 1px solid rgba(255,255,255,0.18);
+}
