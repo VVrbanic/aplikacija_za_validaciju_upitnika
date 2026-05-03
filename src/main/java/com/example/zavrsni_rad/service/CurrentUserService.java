@@ -17,15 +17,17 @@ public class CurrentUserService {
     }
 
     public Integer getCurrentUserId() {
+        return getCurrentUser().getId();
+    }
+
+    public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
             throw new RuntimeException("Korisnik nije prijavljen.");
         }
 
         String username = authentication.getName();
-        User user = userRepository.findByUserNameAndIsActiveTrue(username)
+        return userRepository.findByUserNameAndIsActiveTrue(username)
                 .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen."));
-
-        return user.getId();
     }
 }

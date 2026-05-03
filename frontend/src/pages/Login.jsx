@@ -46,7 +46,7 @@ export default function Login() {
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
-                localStorage.setItem("auth", JSON.stringify(data.user));
+                localStorage.setItem("auth", JSON.stringify(data));
             }
 
             navigate("/quiz/statistic");
