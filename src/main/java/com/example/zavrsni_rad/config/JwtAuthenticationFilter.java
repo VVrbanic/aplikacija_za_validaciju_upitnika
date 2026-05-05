@@ -2,6 +2,7 @@ package com.example.zavrsni_rad.config;
 
 import com.example.zavrsni_rad.entity.User;
 import com.example.zavrsni_rad.repository.UserRepository;
+import com.example.zavrsni_rad.service.TokenBlacklistService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,10 +22,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenJwtService tokenJwtService;
     private final UserRepository userRepository;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtAuthenticationFilter(TokenJwtService tokenJwtService, UserRepository userRepository) {
+    public JwtAuthenticationFilter(TokenJwtService tokenJwtService, UserRepository userRepository, TokenBlacklistService tokenBlacklistService) {
         this.tokenJwtService = tokenJwtService;
         this.userRepository = userRepository;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Override
@@ -48,6 +51,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             username = tokenJwtService.extractUsername(token);
         } catch (RuntimeException ex) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (tokenBlacklistService.isBlacklisted(token)) {
             filterChain.doFilter(request, response);
             return;
         }

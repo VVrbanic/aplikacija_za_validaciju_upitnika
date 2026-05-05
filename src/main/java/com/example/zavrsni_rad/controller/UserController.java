@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,5 +44,11 @@ public class UserController {
     @PutMapping("/me")
     public ResponseEntity<UserInfoDto> updateMe(@Valid @RequestBody UpdateUserInfoDto model) {
         return ResponseEntity.ok(userService.updateCurrentUser(model));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        userService.logout(authorizationHeader);
+        return ResponseEntity.noContent().build();
     }
 }

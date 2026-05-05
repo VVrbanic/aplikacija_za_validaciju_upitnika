@@ -27,6 +27,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CurrentUserMapper currentUserMapper;
     private final UserInfoMapper userInfoMapper;
+    private final TokenBlacklistService tokenBlacklistService;
 
     public UserService(
             CurrentUserService currentUserService,
@@ -35,7 +36,8 @@ public class UserService {
             GenderRepository genderRepository,
             PasswordEncoder passwordEncoder,
             CurrentUserMapper currentUserMapper,
-            UserInfoMapper userInfoMapper
+            UserInfoMapper userInfoMapper,
+            TokenBlacklistService tokenBlacklistService
     ) {
         this.currentUserService = currentUserService;
         this.userRepository = userRepository;
@@ -44,6 +46,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.currentUserMapper = currentUserMapper;
         this.userInfoMapper = userInfoMapper;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     public ResponseEntity<?> create(UserDto model) {
@@ -117,5 +120,14 @@ public class UserService {
 
         User saved = userRepository.save(currentUser);
         return userInfoMapper.map(saved);
+    }
+
+    public void logout(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Nedostaje autorizacijski token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+        tokenBlacklistService.blacklist(token);
     }
 }

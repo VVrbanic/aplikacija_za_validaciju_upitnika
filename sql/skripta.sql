@@ -52,6 +52,12 @@ CREATE TABLE korisnici (
 CREATE INDEX idx_korisnici_stupanj ON korisnici(stupanj_obrazovanja_id);
 CREATE INDEX idx_korisnici_spol ON korisnici(spol_id);
 
+-- 2b) Blacklisted JWT tokens
+CREATE TABLE nedopusteni_tokeni (
+  token VARCHAR(2048) PRIMARY KEY,
+  expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
 -- 3) Upitnik
 CREATE TABLE upitnik (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
