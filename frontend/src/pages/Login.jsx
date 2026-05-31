@@ -75,7 +75,7 @@ export default function Login() {
                         type="userName"
                         value={form.userName}
                         onChange={handleChange}
-                        placeholder="user name"
+                        placeholder="Koriničko ime"
                         autoComplete="userName"
 
                     />
@@ -87,7 +87,7 @@ export default function Login() {
                         type="password"
                         value={form.password}
                         onChange={handleChange}
-                        placeholder="Upiši lozinku"
+                        placeholder="Lozinka"
                         autoComplete="current-password"
                     />
                 </div>

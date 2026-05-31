@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
@@ -51,6 +52,7 @@ function toFormState(user) {
 }
 
 export default function UserInfo() {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [form, setForm] = useState(null);
     const [genders, setGenders] = useState([]);
@@ -60,6 +62,9 @@ export default function UserInfo() {
     const [editing, setEditing] = useState(false);
     const [error, setError] = useState("");
     const [saveError, setSaveError] = useState("");
+    const [deleteError, setDeleteError] = useState("");
+    const [deleting, setDeleting] = useState(false);
+    const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
     const cachedUser = useMemo(() => {
         const raw = localStorage.getItem("auth");
@@ -120,12 +125,14 @@ export default function UserInfo() {
 
     const startEdit = () => {
         setSaveError("");
+        setDeleteError("");
         setEditing(true);
         setForm(toFormState(user));
     };
 
     const cancelEdit = () => {
         setSaveError("");
+        setDeleteError("");
         setEditing(false);
         setForm(toFormState(user));
     };
@@ -166,6 +173,46 @@ export default function UserInfo() {
             setSaveError(err?.response?.data?.message || err.message || "Greška pri spremanju podataka.");
         } finally {
             setSaving(false);
+        }
+    };
+
+    const openDeleteConfirm = () => {
+        setDeleteError("");
+        setConfirmDeleteOpen(true);
+    };
+
+    const cancelDelete = () => {
+        if (deleting) {
+            return;
+        }
+
+        setConfirmDeleteOpen(false);
+    };
+
+    const deleteProfile = async () => {
+        setDeleting(true);
+        setDeleteError("");
+
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                throw new Error("Nisi prijavljen.");
+            }
+
+            await axios.delete("http://localhost:8080/users/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            localStorage.removeItem("token");
+            localStorage.removeItem("auth");
+            navigate("/login", { replace: true });
+        } catch (err) {
+            setDeleteError(err?.response?.data?.message || err.message || "Greška pri brisanju profila.");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteOpen(false);
         }
     };
 
@@ -216,6 +263,7 @@ export default function UserInfo() {
                 </div>
 
                 {saveError && <p className="validation-error">{saveError}</p>}
+                {deleteError && <p className="validation-error">{deleteError}</p>}
 
                 {editing ? (
                     <form id="user-info-form" className="user-info-form" onSubmit={saveUser}>
@@ -263,16 +311,47 @@ export default function UserInfo() {
                         </label>
                     </form>
                 ) : (
-                    <div className="user-info-grid">
-                        {viewFields.map(([key, label]) => (
-                            <div className="user-info-item" key={key}>
-                                <span className="user-info-label">{label}</span>
-                                <span className="user-info-value">{formatValue(key, user?.[key])}</span>
-                            </div>
-                        ))}
-                    </div>
+                    <>
+                        <div className="user-info-grid">
+                            {viewFields.map(([key, label]) => (
+                                <div className="user-info-item" key={key}>
+                                    <span className="user-info-label">{label}</span>
+                                    <span className="user-info-value">{formatValue(key, user?.[key])}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="user-info-danger-zone">
+                            <button type="button" className="qs-btn danger" onClick={openDeleteConfirm}>
+                                Obriši profil
+                            </button>
+                        </div>
+                    </>
                 )}
             </div>
+
+            {confirmDeleteOpen && (
+                <div className="signout-backdrop" role="presentation" onClick={cancelDelete}>
+                    <div
+                        className="signout-modal"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="delete-profile-title"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <p id="delete-profile-title" className="signout-text">
+                            Želiš li deaktivirati profil?
+                        </p>
+                        <div className="signout-actions">
+                            <button type="button" className="qs-btn secondary" onClick={cancelDelete} disabled={deleting}>
+                                Odustani
+                            </button>
+                            <button type="button" className="qs-btn danger" onClick={deleteProfile} disabled={deleting}>
+                                {deleting ? "Brisanje..." : "Obriši profil"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

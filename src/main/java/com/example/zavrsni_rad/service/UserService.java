@@ -130,4 +130,17 @@ public class UserService {
         String token = authorizationHeader.substring(7);
         tokenBlacklistService.blacklist(token);
     }
+
+    public void deactivateCurrentUser(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Nedostaje autorizacijski token.");
+        }
+
+        User currentUser = currentUserService.getCurrentUser();
+        currentUser.setIsActive(false);
+        userRepository.save(currentUser);
+
+        String token = authorizationHeader.substring(7);
+        tokenBlacklistService.blacklist(token);
+    }
 }

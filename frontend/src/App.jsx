@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
-import UserIcon from "./components/UserIcon";
+import AppNavbar from "./components/AppNavbar";
 import WelcomeScreen from "./pages/WelcomeScreen";
 import RegisterPage from "./pages/RegisterPage";
 import Login from "./pages/Login";
@@ -11,21 +11,25 @@ import Quiz from "./pages/Quiz";
 
 function AppContent() {
     const location = useLocation();
-    const isLoggedIn = useMemo(() => {
-        return !!localStorage.getItem("token");
+    const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("token"));
+
+    useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem("token"));
     }, [location.pathname]);
 
     return (
         <>
-            {isLoggedIn && <UserIcon />}
-            <Routes>
-                <Route path="/" element={<WelcomeScreen />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/quiz/statistic" element={<QuizStatistic />} />
-                <Route path="/quiz/new" element={<Quiz />} />
-                <Route path="/user-info" element={<UserInfo />} />
-            </Routes>
+            {isLoggedIn && <AppNavbar />}
+            <div className={isLoggedIn ? "app-shell with-navbar" : "app-shell"}>
+                <Routes>
+                    <Route path="/" element={<WelcomeScreen />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/quiz/statistic" element={<QuizStatistic />} />
+                    <Route path="/quiz/new" element={<Quiz />} />
+                    <Route path="/user-info" element={<UserInfo />} />
+                </Routes>
+            </div>
         </>
     );
 }

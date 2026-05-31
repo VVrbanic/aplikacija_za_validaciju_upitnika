@@ -81,38 +81,6 @@ export default function RegisterPage() {
     };
 
     const onSubmit = async (e) => {
-        e.preventDefault();
-        if (!validate()) return;
-
-        const payload = {
-            firstName: form.firstName,
-            lastName: form.lastName,
-            dateOfBirth: form.dateOfBirth || null,
-            userName: form.userName,
-            email: form.email,
-            password: form.password,
-            ganderId: Number(form.ganderId),
-            educationId: Number(form.educationId),
-            isAdmin: false
-        };
-
-        const res = await fetch("http://localhost:8080/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        });
-
-        const msg = await res.text();
-        if (!res.ok) {
-            alert(msg);
-            return;
-        }
-        alert("Korisnik kreiran!");
-        navigate("/login");
-
-    };
-
-    const register = async (e) => {
         e?.preventDefault();
 
         if (!validate()) return;
@@ -130,24 +98,12 @@ export default function RegisterPage() {
         };
 
         try {
-            const res = await axios.post("http://localhost:8080/users", payload, {
+            await axios.post("http://localhost:8080/users", payload, {
                 headers: { "Content-Type": "application/json" },
             });
 
             alert("Korisnik kreiran!");
-
-            setForm({
-                firstName: "",
-                lastName: "",
-                dateOfBirth: "",
-                userName: "",
-                email: "",
-                password: "",
-                repeatPassword: "",
-                ganderId: "",
-                educationId: "",
-            });
-            setErrors({});
+            navigate("/login");
         } catch (err) {
 
             const msg =
@@ -213,7 +169,7 @@ export default function RegisterPage() {
             </select>
             {errors.educationId && <small className="validation-error">{errors.educationId}</small>}
 
-            <button className="login-button" type="submit" disabled={loadingLookups || !!lookupError} onClick={register}>
+            <button className="login-button" type="submit" disabled={loadingLookups || !!lookupError}>
                 Registriraj se
             </button>
         </form>

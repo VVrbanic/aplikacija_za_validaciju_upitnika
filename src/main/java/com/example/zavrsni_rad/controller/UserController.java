@@ -8,6 +8,7 @@ import com.example.zavrsni_rad.dto.UserInfoDto;
 import com.example.zavrsni_rad.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,6 +50,12 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
         userService.logout(authorizationHeader);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> deleteMe(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        userService.deactivateCurrentUser(authorizationHeader);
         return ResponseEntity.noContent().build();
     }
 }
