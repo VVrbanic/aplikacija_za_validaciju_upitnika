@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 export default function Quiz() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -89,7 +91,7 @@ export default function Quiz() {
             <div className="quiz-header">
                 <h2>Kviz</h2>
                 <div className="quiz-actions">
-                    <button className="btn secondary" onClick={loadQuiz}>Novi kviz</button>
+                    <button className="btn secondary" onClick={() => navigate("/quiz/new")}>Novi kviz</button>
                     <button className="btn" onClick={onSubmit} disabled={submitted || questions.length === 0}>
                         Predaj
                     </button>

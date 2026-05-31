@@ -340,6 +340,109 @@ form{
   color: var(--text-primary);
 }
 
+.quiz-setup-page {
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.quiz-setup-card {
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface-soft);
+  backdrop-filter: blur(10px);
+  text-align: left;
+}
+
+.quiz-setup-header {
+  margin-bottom: 24px;
+}
+
+.quiz-setup-title {
+  margin: 0 0 8px;
+}
+
+.quiz-setup-subtitle {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.quiz-setup-section + .quiz-setup-section {
+  margin-top: 20px;
+}
+
+.quiz-setup-sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.quiz-setup-sectionHeader h3 {
+  margin: 0;
+}
+
+.quiz-setup-sectionHeader span {
+  color: var(--text-secondary);
+}
+
+.quiz-setup-categories {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.quiz-category-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-muted);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.quiz-category-option:hover {
+  transform: translateY(-1px);
+  background: var(--bg-elevated);
+}
+
+.quiz-category-option.selected {
+  border-color: var(--border-accent);
+  background: var(--bg-accent-soft);
+}
+
+.quiz-category-option input {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+}
+
+.quiz-category-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quiz-category-name {
+  font-weight: 700;
+}
+
+.quiz-category-meta {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.quiz-setup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .quiz-header {
   display: flex;
   align-items: center;
@@ -563,6 +666,16 @@ form{
   .app-navbar-user {
     width: 100%;
     justify-content: flex-end;
+  }
+
+  .quiz-setup-sectionHeader,
+  .quiz-setup-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quiz-setup-categories {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -12,12 +12,7 @@ export default function QuizStatistic() {
     return (
         <div className="register-form">
             <div className="title">Statistika</div>
-
             <UserStatistic />
-
-            <button type="button" className="login-button" onClick={() => { navigate("/quiz/new")}}>
-                Novi kviz
-            </button>
         </div>
     );
 }

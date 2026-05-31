@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import UserInfo from "./pages/UserInfo";
 import QuizStatistic from "./pages/QuizStatistic.jsx";
 import Quiz from "./pages/Quiz";
+import QuizSetupPage from "./pages/QuizSetupPage.jsx";
 
 const THEME_STORAGE_KEY = "theme";
 
@@ -34,7 +35,8 @@ function AppContent() {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/quiz/statistic" element={<QuizStatistic />} />
-                    <Route path="/quiz/new" element={<Quiz />} />
+                    <Route path="/quiz/new" element={<QuizSetupPage />} />
+                    <Route path="/quiz/play" element={<Quiz />} />
                     <Route path="/user-info" element={<UserInfo />} />
                 </Routes>
             </div>

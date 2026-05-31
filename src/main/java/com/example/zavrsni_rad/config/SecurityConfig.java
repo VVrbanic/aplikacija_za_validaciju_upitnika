@@ -27,6 +27,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/gender/**",
                                 "/education/**",
+                                "/categories/**",
                                 "/question/random"
                         ).permitAll()
                         .anyRequest().authenticated()
