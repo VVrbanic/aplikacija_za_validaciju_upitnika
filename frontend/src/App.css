@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .button-primary{
@@ -14,19 +15,21 @@ input, select, .login-button {
   font-size: 14px;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-default);
   outline: none;
   box-sizing: border-box;
   margin: 10px;
+  color: var(--text-primary);
+  background: var(--bg-input);
 }
 
 input:focus, select:focus {
-  border-color: #646cff;
-  box-shadow: 0 0 0 4px rgba(100, 108, 255, 0.18);
+  border-color: var(--link-color);
+  box-shadow: var(--shadow-focus);
 }
 
 .validation-error{
-  color: deeppink;
+  color: #ff4d8d;
 }
 
 .title{
@@ -60,9 +63,9 @@ form{
   gap: 16px;
   padding: 10px 14px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(16, 20, 32, 0.92);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(12px);
 }
 
@@ -79,20 +82,20 @@ form{
   min-height: 40px;
   padding: 0 16px;
   border-radius: 999px;
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
   border: 1px solid transparent;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .app-navbar-link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--bg-elevated);
+  border-color: var(--border-soft);
 }
 
 .app-navbar-link.active {
-  background: rgba(120, 200, 255, 0.18);
-  border-color: rgba(120, 200, 255, 0.38);
+  background: var(--bg-accent-soft);
+  border-color: var(--border-accent);
 }
 
 .app-navbar-user {
@@ -106,8 +109,9 @@ form{
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: 1px solid var(--border-default);
+  background: var(--bg-input-button);
+  color: var(--text-primary);
   cursor: pointer;
 
   display: flex;
@@ -116,8 +120,8 @@ form{
 }
 
 .user-icon-btn:hover {
-  border-color: #646cff;
-  box-shadow: 0 0 0 4px rgba(100, 108, 255, 0.18);
+  border-color: var(--link-color);
+  box-shadow: var(--shadow-focus);
 }
 
 .user-icon-btn svg {
@@ -143,9 +147,9 @@ form{
   min-width: 160px;
   padding: 8px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(16, 20, 32, 0.96);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface-strong);
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(12px);
 }
 
@@ -154,7 +158,7 @@ form{
   display: block;
   border: none;
   background: transparent;
-  color: white;
+  color: var(--text-primary);
   text-align: left;
   padding: 10px 12px;
   border-radius: 12px;
@@ -163,7 +167,7 @@ form{
 }
 
 .user-menu-item:hover {
-  background: rgba(255, 255, 255, 0.10);
+  background: var(--bg-elevated);
 }
 
 .user-menu-item + .user-menu-item {
@@ -177,7 +181,7 @@ form{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(5, 8, 16, 0.62);
+  background: var(--bg-overlay);
   backdrop-filter: blur(3px);
 }
 
@@ -185,9 +189,9 @@ form{
   width: min(92vw, 360px);
   border-radius: 18px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(16, 20, 32, 0.98);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface-strong);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
   text-align: left;
 }
 
@@ -195,7 +199,7 @@ form{
   margin: 0 0 18px 0;
   font-size: 16px;
   line-height: 1.5;
-  color: white;
+  color: var(--text-primary);
 }
 
 .signout-actions {
@@ -212,8 +216,8 @@ form{
 .qs-card{
   border-radius: 16px;
   padding: 20px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface-soft);
   backdrop-filter: blur(8px);
 }
 
@@ -254,13 +258,14 @@ form{
   width: 100%;
   border-radius: 14px;
   padding: 12px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(0,0,0,0.15);
+  border: 1px solid var(--border-default);
+  background: var(--bg-input);
+  color: var(--text-primary);
   outline: none;
 }
 
 .qs-select:focus{
-  border-color: rgba(255,255,255,0.35);
+  border-color: var(--border-accent);
 }
 
 .qs-hint{
@@ -277,16 +282,17 @@ form{
 }
 
 .qs-chip{
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border-default);
+  background: var(--bg-elevated);
   padding: 8px 10px;
   border-radius: 999px;
   cursor: pointer;
   font-size: 13px;
+  color: var(--text-primary);
 }
 
 .qs-chip:hover{
-  background: rgba(255,255,255,0.12);
+  background: var(--bg-elevated-hover);
 }
 
 .qs-chip-x{
@@ -302,14 +308,15 @@ form{
 .qs-btn{
   padding: 12px 16px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.12);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
   cursor: pointer;
   font-weight: 600;
 }
 
 .qs-btn:hover{
-  background: rgba(255,255,255,0.16);
+  background: var(--bg-elevated-hover);
 }
 
 .qs-btn:disabled{
@@ -318,8 +325,8 @@ form{
 }
 
 .qs-btn.danger {
-  border-color: rgba(255, 88, 120, 0.4);
-  background: rgba(255, 88, 120, 0.16);
+  border-color: var(--border-danger);
+  background: var(--bg-danger-soft);
 }
 
 .qs-btn.danger:hover {
@@ -330,7 +337,7 @@ form{
   max-width: 900px;
   margin: 0 auto;
   padding: 24px;
-  color: white;
+  color: var(--text-primary);
 }
 
 .quiz-header {
@@ -347,8 +354,8 @@ form{
 }
 
 .score-box {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
   padding: 12px 14px;
   border-radius: 12px;
   margin-bottom: 16px;
@@ -361,8 +368,8 @@ form{
 }
 
 .question-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
   border-radius: 16px;
   padding: 16px;
 }
@@ -386,9 +393,9 @@ form{
 }
 
 .answer-btn {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
-  color: white;
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface-soft);
+  color: var(--text-primary);
   border-radius: 12px;
   padding: 12px 12px;
   text-align: left;
@@ -398,28 +405,28 @@ form{
 
 .answer-btn:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.10);
+  background: var(--bg-elevated-hover);
 }
 
 .answer-btn.selected {
-  outline: 2px solid rgba(120, 200, 255, 0.85);
-  background: rgba(120, 200, 255, 0.16);
+  outline: 2px solid var(--border-accent);
+  background: var(--bg-accent-soft);
 }
 
 .answer-btn.correct {
-  background: rgba(88, 255, 170, 0.18);
-  border-color: rgba(88, 255, 170, 0.35);
+  background: var(--bg-success-soft);
+  border-color: var(--border-success);
 }
 
 .answer-btn.wrong {
-  background: rgba(255, 88, 120, 0.18);
-  border-color: rgba(255, 88, 120, 0.35);
+  background: var(--bg-danger-soft);
+  border-color: var(--border-danger);
 }
 
 .btn {
   border: none;
-  background: rgba(120, 200, 255, 0.95);
-  color: #052032;
+  background: var(--accent-button);
+  color: var(--text-strong-contrast);
   padding: 10px 14px;
   border-radius: 12px;
   font-weight: 800;
@@ -427,9 +434,9 @@ form{
 }
 
 .btn.secondary {
-  background: rgba(255, 255, 255, 0.14);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
 }
 
 .btn:disabled {
@@ -446,8 +453,8 @@ form{
 .user-info-card {
   border-radius: 20px;
   padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface-soft);
   backdrop-filter: blur(10px);
   text-align: left;
 }
@@ -461,8 +468,8 @@ form{
 .user-info-item {
   border-radius: 14px;
   padding: 14px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-muted);
 }
 
 .user-info-label {

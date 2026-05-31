@@ -9,9 +9,17 @@ import UserInfo from "./pages/UserInfo";
 import QuizStatistic from "./pages/QuizStatistic.jsx";
 import Quiz from "./pages/Quiz";
 
+const THEME_STORAGE_KEY = "theme";
+
 function AppContent() {
     const location = useLocation();
     const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("token"));
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || "dark";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        localStorage.setItem(THEME_STORAGE_KEY, savedTheme);
+    }, []);
 
     useEffect(() => {
         setIsLoggedIn(!!localStorage.getItem("token"));

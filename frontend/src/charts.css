@@ -22,7 +22,7 @@
 
 .charts-subtitle {
     margin: 6px 0 0;
-    opacity: 0.8;
+    color: var(--text-secondary);
 }
 
 .charts-selectWrap {
@@ -35,29 +35,29 @@
 
 .charts-label {
     font-size: 12px;
-    opacity: 0.8;
+    color: var(--text-secondary);
 }
 
 .charts-select {
     padding: 10px 12px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--border-default);
     outline: none;
-    background: #fff;
-    color: #111;
+    background: var(--bg-input);
+    color: var(--text-primary);
 }
 
 .charts-select:focus {
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: var(--border-accent);
 }
 
 .charts-card {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-soft);
     border-radius: 16px;
     padding: 16px;
     margin-top: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-surface);
+    background: var(--bg-surface-soft);
 }
 
 .charts-cardHeader {
@@ -73,35 +73,32 @@
     margin: 0;
     font-size: 18px;
     font-weight: 800;
-    color: grey;
+    color: var(--text-primary);
 }
 
 .charts-badge {
     font-size: 12px;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    opacity: 0.85;
-    color: grey;
+    border: 1px solid var(--border-default);
+    color: var(--text-secondary);
 }
 
 .charts-smallStat {
     font-size: 13px;
-    opacity: 0.85;
+    color: var(--text-secondary);
 
 }
 .charts-smallStat-grey{
     font-size: 13px;
-    opacity: 0.85;
-    color: #808080;
+    color: var(--text-secondary);
 
 }
 
 .charts-note {
     margin-top: 8px;
     font-size: 13px;
-    opacity: 0.8;
-    color: #808080;
+    color: var(--text-secondary);
 }
 
 .charts-chart {
@@ -117,7 +114,7 @@
 }
 
 .recharts-legend-item-text{
-    color: #808080;
+    color: var(--text-secondary);
     padding: 2px;
 }
 
@@ -125,9 +122,9 @@
 .charts-tableWrap {
     margin-top: 12px;
     padding: 12px;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid var(--border-soft);
     border-radius: 14px;
-    background: rgba(255,255,255,0.06);
+    background: var(--bg-muted);
 }
 
 .charts-tableTitle {
@@ -139,7 +136,7 @@
     max-height: 1000px;
     overflow: auto;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid var(--border-muted);
 }
 
 .charts-table {
@@ -150,25 +147,25 @@
 .charts-table thead th {
     position: sticky;
     top: 0;
-    background: rgba(10, 18, 40, 0.85);
+    background: var(--bg-table-head);
     backdrop-filter: blur(6px);
     text-align: left;
     padding: 10px 12px;
     font-size: 13px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .charts-table tbody td {
     padding: 10px 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid var(--border-muted);
     cursor: pointer;
 }
 
 .charts-table tbody tr:hover {
-    background: rgba(255,255,255,0.06);
+    background: var(--bg-elevated);
 }
 
 .charts-table tbody tr.isSelected {
-    background: rgba(255,255,255,0.10);
-    outline: 1px solid rgba(255,255,255,0.18);
+    background: var(--bg-accent-soft);
+    outline: 1px solid var(--border-accent);
 }

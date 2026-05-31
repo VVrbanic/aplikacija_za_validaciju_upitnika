@@ -4,11 +4,14 @@ import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
 import "../App.css";
 
+const THEME_STORAGE_KEY = "theme";
+
 export default function UserIcon() {
     const navigate = useNavigate();
     const menuRef = useRef(null);
     const [open, setOpen] = useState(false);
     const [confirmSignOutOpen, setConfirmSignOutOpen] = useState(false);
+    const [theme, setTheme] = useState(() => localStorage.getItem(THEME_STORAGE_KEY) || "dark");
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -21,9 +24,19 @@ export default function UserIcon() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    }, [theme]);
+
     const goToProfile = () => {
         setOpen(false);
         navigate("/user-info");
+    };
+
+    const toggleTheme = () => {
+        setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+        setOpen(false);
     };
 
     const openSignOutConfirm = () => {
@@ -70,6 +83,9 @@ export default function UserIcon() {
 
             {open && (
                 <div className="user-menu-dropdown" role="menu" aria-label="User menu">
+                    <button type="button" className="user-menu-item" onClick={toggleTheme} role="menuitem">
+                        {theme === "dark" ? "Light mode" : "Dark mode"}
+                    </button>
                     <button type="button" className="user-menu-item" onClick={goToProfile} role="menuitem">
                         Profil
                     </button>
