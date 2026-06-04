@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 export default function QuizSetupPage() {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
     const [questionCount, setQuestionCount] = useState("");
@@ -78,6 +80,24 @@ export default function QuizSetupPage() {
         }
     }, [selectedQuestionLimit, questionCount]);
 
+    const startConfiguredQuiz = () => {
+        if (!canStartQuiz) return;
+
+        const params = new URLSearchParams({
+            limit: String(Number(questionCount)),
+        });
+
+        selectedCategoryIds.forEach((categoryId) => {
+            params.append("categoryIds", String(categoryId));
+        });
+
+        navigate(`/quiz/play?${params.toString()}`);
+    };
+
+    const startRandomQuiz = () => {
+        navigate("/quiz/play?limit=50");
+    };
+
     return (
         <div className="register-form">
             <div className="title">Novi kviz</div>
@@ -86,11 +106,11 @@ export default function QuizSetupPage() {
                 <div className="quiz-setup-card">
                     <div className="quiz-setup-header">
                         <p className="quiz-setup-subtitle">
-                            Odaberi kategorije koje zelis ukljuciti i koliko pitanja kviz treba imati.
+                            Odaberi kategorije koje želiš uključiti i koliko pitanja kviz treba imati.
                         </p>
                     </div>
 
-                    {loading && <p>Ucitam kategorije...</p>}
+                    {loading && <p>Učitavam kategorije...</p>}
                     {error && <p className="validation-error">{error}</p>}
 
                     {!loading && !error && (
@@ -144,11 +164,11 @@ export default function QuizSetupPage() {
                             </div>
 
                             <div className="quiz-setup-actions">
-                                <button type="button" className="login-button" disabled={!canStartQuiz}>
-                                    Zapocni kviz
+                                <button type="button" className="login-button" disabled={!canStartQuiz} onClick={startConfiguredQuiz}>
+                                    Započni kviz
                                 </button>
-                                <button type="button" className="login-button" disabled={categories.length === 0}>
-                                    Zapocni random kviz
+                                <button type="button" className="login-button" disabled={categories.length === 0} onClick={startRandomQuiz}>
+                                    Započni random kviz
                                 </button>
                             </div>
                         </>

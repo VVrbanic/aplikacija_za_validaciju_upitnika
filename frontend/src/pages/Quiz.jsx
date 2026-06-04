@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "../App.css";
 
 export default function Quiz() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -22,7 +23,18 @@ export default function Quiz() {
             setScore(0);
             setSelections({});
 
-            const res = await axios.get("http://localhost:8080/question/random");
+            const limit = Number(searchParams.get("limit")) || 50;
+            const categoryIds = searchParams
+                .getAll("categoryIds")
+                .map((value) => Number(value))
+                .filter((value) => Number.isInteger(value) && value > 0);
+
+            const res = await axios.get("http://localhost:8080/question/random", {
+                params: {
+                    limit,
+                    ...(categoryIds.length > 0 ? { categoryIds } : {}),
+                },
+            });
             setQuestions(res.data || []);
         } catch (e) {
             setError("Ne mogu dohvatiti kviz. Provjeri backend endpoint.");
@@ -33,7 +45,7 @@ export default function Quiz() {
 
     useEffect(() => {
         loadQuiz();
-    }, []);
+    }, [searchParams]);
 
     const chooseAnswer = (questionId, answerId) => {
         if (submitted) return;
