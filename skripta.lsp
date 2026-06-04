@@ -69,7 +69,7 @@ CREATE INDEX idx_upitnik_korisnik ON upitnik(korisnici_id);
 -- 4) Pitanja
 CREATE TABLE pitanja (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  pitanje VARCHAR(256) NOT NULL,
+  pitanje VARCHAR(1000) NOT NULL,
   kategorije_id INT NOT NULL,
   aktivno INT NOT NULL DEFAULT 1,
 

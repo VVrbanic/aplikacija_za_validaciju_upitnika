@@ -22,7 +22,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,
                                 "/users",
-                                "/users/login"
+                                "/users/login",
+                                "/question/new"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/gender/**",

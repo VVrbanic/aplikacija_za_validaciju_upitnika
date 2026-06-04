@@ -24,7 +24,7 @@ public class Question {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "pitanje")
+    @Column(name = "pitanje", length = 1000)
     private String question;
 
     @Column(name = "kategorije_id")

@@ -19,7 +19,7 @@ public class CategoryController {
 
     @GetMapping
     public List<CategoryDto> getAll() {
-        return repository.findAll()
+            return repository.findAll()
                 .stream()
                 .map(category -> CategoryDto.builder()
                         .id(Long.valueOf(category.getId()))
