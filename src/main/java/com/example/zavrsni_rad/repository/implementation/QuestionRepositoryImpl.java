@@ -59,7 +59,7 @@ public class QuestionRepositoryImpl implements QuestionCustomRepository {
               o.odgovor,
               o.tocan_odgovor
             FROM kviz k
-            JOIN odgovori o ON o.pitanja_id = k.id
+            JOIN odgovori o ON o.pitanja_id = k.id AND o.aktivno = 1
             ORDER BY k.sort_order, o.id
             """);
         params.add(limit);

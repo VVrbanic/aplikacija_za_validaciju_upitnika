@@ -10,6 +10,7 @@ import QuizStatistic from "./pages/QuizStatistic.jsx";
 import Quiz from "./pages/Quiz";
 import QuizSetupPage from "./pages/QuizSetupPage.jsx";
 import AddQuestionPage from "./pages/AddQuestionPage.jsx";
+import DeleteQuestionPage from "./pages/DeleteQuestionPage.jsx";
 
 const THEME_STORAGE_KEY = "theme";
 
@@ -38,6 +39,7 @@ function AppContent() {
                     <Route path="/quiz/statistic" element={<QuizStatistic />} />
                     <Route path="/quiz/new" element={<QuizSetupPage />} />
                     <Route path="/question/new" element={<AddQuestionPage />} />
+                    <Route path="/question/delete" element={<DeleteQuestionPage />} />
                     <Route path="/quiz/play" element={<Quiz />} />
                     <Route path="/user-info" element={<UserInfo />} />
                 </Routes>

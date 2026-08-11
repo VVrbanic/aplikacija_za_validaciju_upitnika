@@ -24,7 +24,7 @@ public class CategoryController {
                 .map(category -> CategoryDto.builder()
                         .id(Long.valueOf(category.getId()))
                         .name(category.getName())
-                        .totalQuestionCount(questionRepository.countByCatogoryId(category.getId()))
+                        .totalQuestionCount(questionRepository.countByCatogoryIdAndActive(category.getId(), 1))
                         .build())
                 .toList();
     }

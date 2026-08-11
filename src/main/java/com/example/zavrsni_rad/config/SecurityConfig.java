@@ -23,13 +23,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,
                                 "/users",
                                 "/users/login",
-                                "/question/new"
+                                "/question/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/gender/**",
                                 "/education/**",
                                 "/categories/**",
-                                "/question/random"
+                                "/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

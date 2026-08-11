@@ -63,7 +63,10 @@ export default function AppNavbar() {
                                 type="button"
                                 className="app-navbar-dropdown-item"
                                 role="menuitem"
-                                onClick={() => setQuestionsOpen(false)}
+                                onClick={() => {
+                                    setQuestionsOpen(false);
+                                    navigate("/question/delete");
+                                }}
                             >
                                 Izbrisi pitanje
                             </button>

@@ -2,13 +2,16 @@ package com.example.zavrsni_rad.controller;
 
 import com.example.zavrsni_rad.dto.AnswerDto;
 import com.example.zavrsni_rad.dto.CreateQuestionRequest;
+import com.example.zavrsni_rad.dto.DeleteQuestionsRequest;
 import com.example.zavrsni_rad.dto.QuestionDto;
+import com.example.zavrsni_rad.dto.QuestionListItemDto;
 import com.example.zavrsni_rad.entity.Answer;
 import com.example.zavrsni_rad.entity.Category;
 import com.example.zavrsni_rad.entity.Question;
 import com.example.zavrsni_rad.repository.CategoryRepository;
 import com.example.zavrsni_rad.repository.QuestionCustomRepository;
 import com.example.zavrsni_rad.repository.QuestionRepository;
+import com.example.zavrsni_rad.service.QuestionAdminService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,17 +35,19 @@ public class QuestionController {
     private final QuestionCustomRepository questionCustomRepository;
     private final QuestionRepository questionRepository;
     private final CategoryRepository categoryRepository;
+    private final QuestionAdminService questionAdminService;
 
     public QuestionController(
             QuestionCustomRepository questionCustomRepository,
             QuestionRepository questionRepository,
-            CategoryRepository categoryRepository
+            CategoryRepository categoryRepository,
+            QuestionAdminService questionAdminService
     ) {
         this.questionCustomRepository = questionCustomRepository;
         this.questionRepository = questionRepository;
         this.categoryRepository = categoryRepository;
+        this.questionAdminService = questionAdminService;
     }
-
 
     @GetMapping("/random")
     public List<QuestionDto> getAll(
@@ -54,6 +59,14 @@ public class QuestionController {
                 effectiveLimit,
                 categoryIds == null ? Collections.emptyList() : categoryIds
         );
+    }
+
+    @GetMapping("/manage")
+    public List<QuestionListItemDto> getForManagement(
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String text
+    ) {
+        return questionAdminService.findQuestions(categoryId, text);
     }
 
     @PostMapping
@@ -76,6 +89,12 @@ public class QuestionController {
 
         Question savedQuestion = questionRepository.save(question);
         return ResponseEntity.status(HttpStatus.CREATED).body(toDto(savedQuestion));
+    }
+
+    @PostMapping("/deactivate")
+    public ResponseEntity<Void> deactivate(@RequestBody DeleteQuestionsRequest request) {
+        questionAdminService.deactivateQuestions(request.getQuestionIds());
+        return ResponseEntity.noContent().build();
     }
 
     private Answer buildAnswer(Question question, String value, boolean isCorrect) {

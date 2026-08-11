@@ -593,6 +593,156 @@ form{
   font-size: 14px;
 }
 
+.question-delete-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  text-align: left;
+}
+
+.question-delete-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.question-delete-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.question-delete-filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(320px, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+
+.question-delete-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.question-delete-field span {
+  font-weight: 700;
+}
+
+.question-delete-field input,
+.question-delete-field select {
+  margin: 0;
+}
+
+.question-delete-actions {
+  display: flex;
+  align-items: flex-end;
+}
+
+.question-delete-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.question-delete-tableWrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+}
+
+.question-delete-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: var(--bg-surface-strong);
+}
+
+.question-delete-table th,
+.question-delete-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-muted);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.question-delete-table th {
+  background: var(--bg-table-head);
+  color: var(--text-primary);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.question-delete-table tbody tr {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.question-delete-table tbody tr:hover {
+  background: var(--bg-elevated-hover);
+}
+
+.question-delete-table tbody tr.selected {
+  background: var(--bg-accent-soft);
+}
+
+.question-delete-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.question-delete-empty {
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.question-delete-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent-button);
+  cursor: pointer;
+}
+
+.question-delete-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(3px);
+  padding: 20px;
+}
+
+.question-delete-modal {
+  width: min(92vw, 420px);
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface-strong);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+
+.question-delete-modalText {
+  margin: 0 0 18px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.question-delete-modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .quiz-header {
   display: flex;
   align-items: center;
@@ -834,6 +984,23 @@ form{
     align-items: stretch;
   }
 
+  .question-delete-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .question-delete-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .question-delete-actions {
+    justify-content: stretch;
+  }
+
+  .question-delete-actions .btn {
+    width: 100%;
+  }
+
   .quiz-setup-categories {
     grid-template-columns: 1fr;
   }
@@ -845,8 +1012,15 @@ form{
   .question-answer-correct {
     justify-content: flex-start;
   }
-}
 
+  .question-delete-modalActions {
+    flex-direction: column;
+  }
+
+  .question-delete-modalActions .btn {
+    width: 100%;
+  }
+}
 
 
 
