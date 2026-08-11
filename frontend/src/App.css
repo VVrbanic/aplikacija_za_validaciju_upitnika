@@ -10,7 +10,7 @@
   margin: 0 4px 0 4px;
 }
 
-input, select, .login-button {
+input, select, textarea {
   width: 100%;
   font-size: 14px;
   padding: 12px 14px;
@@ -19,13 +19,38 @@ input, select, .login-button {
   outline: none;
   box-sizing: border-box;
   margin: 10px;
-  color: var(--text-primary);
+  color: var(--text-on-light-surface);
   background: var(--bg-input);
 }
 
-input:focus, select:focus {
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-on-light-surface);
+  font-style: italic
+}
+
+input:focus, select:focus, textarea:focus {
   border-color: var(--link-color);
   box-shadow: var(--shadow-focus);
+}
+
+.login-button {
+  width: 100%;
+  margin: 10px;
+  border-radius: 14px;
+  border: 1px solid var(--border-accent);
+  background: var(--accent-button);
+  color: var(--text-strong-contrast);
+  font-weight: 700;
+}
+
+.login-button:hover {
+  background: var(--link-color);
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .validation-error{
@@ -159,7 +184,7 @@ form{
   border-radius: 999px;
   border: 1px solid var(--border-default);
   background: var(--bg-input-button);
-  color: var(--text-primary);
+  color: var(--text-on-light-surface);
   cursor: pointer;
 
   display: flex;
@@ -280,6 +305,7 @@ form{
 
 .qs-subtitle{
   margin: 0;
+  color: var(--text-secondary);
   opacity: 0.9;
   line-height: 1.4;
 }
@@ -290,6 +316,7 @@ form{
   border-radius: 12px;
   border: 1px solid rgba(255, 0, 0, 0.25);
   background: rgba(255, 0, 0, 0.08);
+  color: var(--text-primary);
 }
 
 .qs-section{
@@ -308,7 +335,7 @@ form{
   padding: 12px;
   border: 1px solid var(--border-default);
   background: var(--bg-input);
-  color: var(--text-primary);
+  color: var(--text-on-light-surface);
   outline: none;
 }
 
@@ -735,6 +762,7 @@ form{
   margin: 0 0 18px 0;
   font-size: 16px;
   line-height: 1.5;
+  color: var(--text-primary);
 }
 
 .question-delete-modalActions {
@@ -819,11 +847,13 @@ form{
 .answer-btn.correct {
   background: var(--bg-success-soft);
   border-color: var(--border-success);
+  color: var(--text-primary);
 }
 
 .answer-btn.wrong {
   background: var(--bg-danger-soft);
   border-color: var(--border-danger);
+  color: var(--text-primary);
 }
 
 .btn {
@@ -840,6 +870,16 @@ form{
   background: var(--bg-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-strong);
+}
+
+.btn.danger {
+  background: var(--bg-danger-soft);
+  color: var(--text-primary);
+  border: 1px solid var(--border-danger);
+}
+
+.btn.danger:hover {
+  background: rgba(255, 88, 120, 0.24);
 }
 
 .btn:disabled {
@@ -888,6 +928,7 @@ form{
   display: block;
   font-size: 16px;
   word-break: break-word;
+  color: var(--text-primary);
 }
 
 .user-info-header {
@@ -900,7 +941,12 @@ form{
 
 .user-info-subtitle {
   margin: 0;
+  color: var(--text-secondary);
   opacity: 0.82;
+}
+
+.page {
+  color: var(--text-primary);
 }
 
 .user-info-actions {
@@ -1021,6 +1067,5 @@ form{
     width: 100%;
   }
 }
-
 
 

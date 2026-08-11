@@ -44,7 +44,7 @@
     border: 1px solid var(--border-default);
     outline: none;
     background: var(--bg-input);
-    color: var(--text-primary);
+    color: var(--text-on-light-surface);
 }
 
 .charts-select:focus {
@@ -149,6 +149,7 @@
     top: 0;
     background: var(--bg-table-head);
     backdrop-filter: blur(6px);
+    color: var(--text-primary);
     text-align: left;
     padding: 10px 12px;
     font-size: 13px;
@@ -158,6 +159,7 @@
 .charts-table tbody td {
     padding: 10px 12px;
     border-bottom: 1px solid var(--border-muted);
+    color: var(--text-primary);
     cursor: pointer;
 }
 

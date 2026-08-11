@@ -9,6 +9,7 @@
 
   color-scheme: dark;
   --bg-page: #000000;
+  --bg-page-end: #050505;
   --bg-surface: rgba(15, 23, 42, 0.88);
   --bg-surface-strong: rgba(16, 20, 32, 0.96);
   --bg-surface-soft: rgba(255, 255, 255, 0.06);
@@ -26,6 +27,7 @@
   --text-secondary: rgba(255, 255, 255, 0.76);
   --text-muted: rgba(255, 255, 255, 0.62);
   --text-strong-contrast: #052032;
+  --text-on-light-surface: #111827;
   --border-default: rgba(255, 255, 255, 0.14);
   --border-soft: rgba(255, 255, 255, 0.12);
   --border-muted: rgba(255, 255, 255, 0.1);
@@ -44,6 +46,7 @@
 :root[data-theme="light"] {
   color-scheme: light;
   --bg-page: #eef3fb;
+  --bg-page-end: #dbe7f7;
   --bg-surface: rgba(255, 255, 255, 0.94);
   --bg-surface-strong: rgba(255, 255, 255, 0.98);
   --bg-surface-soft: rgba(255, 255, 255, 0.9);
@@ -61,6 +64,7 @@
   --text-secondary: #334155;
   --text-muted: #64748b;
   --text-strong-contrast: #ffffff;
+  --text-on-light-surface: #152033;
   --border-default: rgba(15, 23, 42, 0.12);
   --border-soft: rgba(15, 23, 42, 0.1);
   --border-muted: rgba(15, 23, 42, 0.08);
@@ -94,7 +98,7 @@ body {
   color: var(--text-primary);
   background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 28%),
-    linear-gradient(180deg, var(--bg-page) 0%, #050505 100%);
+    linear-gradient(180deg, var(--bg-page) 0%, var(--bg-page-end) 100%);
 }
 
 h1 {
@@ -110,7 +114,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: var(--bg-input-button);
-  color: #111827;
+  color: var(--text-on-light-surface);
   cursor: pointer;
   transition: border-color 0.25s;
 }
