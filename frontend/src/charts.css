@@ -125,6 +125,7 @@
     border: 1px solid var(--border-soft);
     border-radius: 14px;
     background: var(--bg-muted);
+    width: 100%;
 }
 
 .charts-tableTitle {

@@ -1,5 +1,5 @@
 #root {
-  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -977,7 +977,82 @@ form{
   margin: 0;
 }
 
+.admin-tool-page {
+  width: 80%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.admin-tool-card {
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface-soft);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+}
+
+.admin-tool-description {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.admin-tool-note {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.admin-summary-item {
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-summary-item-wide {
+  grid-column: span 3;
+}
+
+.admin-summary-label {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-summary-value {
+  color: var(--text-primary);
+  font-size: 24px;
+  line-height: 1.2;
+}
+
 @media (max-width: 720px) {
+  .admin-tool-page {
+    width: 100%;
+  }
+
+  .admin-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-summary-item-wide {
+    grid-column: span 1;
+  }
+
   .user-info-grid {
     grid-template-columns: 1fr;
   }
@@ -1067,5 +1142,3 @@ form{
     width: 100%;
   }
 }
-
-

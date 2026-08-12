@@ -23,6 +23,10 @@ export default function UserStatistic() {
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [categoryStats, setCategoryStats] = useState([]);
     const [quizTrend, setQuizTrend] = useState([]);
+    const [genderOptions, setGenderOptions] = useState([]);
+    const [educationOptions, setEducationOptions] = useState([]);
+    const [selectedGenderId, setSelectedGenderId] = useState("");
+    const [selectedEducationId, setSelectedEducationId] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -32,17 +36,35 @@ export default function UserStatistic() {
                 setLoading(true);
                 setError("");
 
-                const res = await api.get("/quiz/statistics", {
-                    headers: {
-                        Authorization: `Bearer ${getAuthToken()}`,
-                    },
-                });
+                const authHeaders = {
+                    Authorization: `Bearer ${getAuthToken()}`,
+                };
+                const params = {};
 
-                const nextCategoryStats = res.data?.categoryStats ?? [];
-                const nextQuizTrend = res.data?.quizTrend ?? [];
+                if (selectedGenderId !== "") {
+                    params.genderId = selectedGenderId;
+                }
+
+                if (selectedEducationId !== "") {
+                    params.educationId = selectedEducationId;
+                }
+
+                const [statsRes, genderRes, educationRes] = await Promise.all([
+                    api.get("/quiz/statistics", {
+                        headers: authHeaders,
+                        params,
+                    }),
+                    api.get("/gender"),
+                    api.get("/education"),
+                ]);
+
+                const nextCategoryStats = statsRes.data?.categoryStats ?? [];
+                const nextQuizTrend = statsRes.data?.quizTrend ?? [];
 
                 setCategoryStats(nextCategoryStats);
                 setQuizTrend(nextQuizTrend);
+                setGenderOptions(genderRes.data ?? []);
+                setEducationOptions(educationRes.data ?? []);
                 setSelectedCategoryId(nextCategoryStats[0]?.categoryId ?? null);
             } catch (e) {
                 setError("Ne mogu dohvatiti statistiku kvizova.");
@@ -52,7 +74,7 @@ export default function UserStatistic() {
         };
 
         loadStatistics();
-    }, []);
+    }, [selectedGenderId, selectedEducationId]);
 
     const categoryEaseData = useMemo(() => {
         return categoryStats.map((row) => ({
@@ -116,6 +138,42 @@ export default function UserStatistic() {
                 </div>
 
                 <div className="charts-tableWrap">
+                    <div className="charts-header">
+                        <div className="charts-selectWrap">
+                            <label className="charts-label" htmlFor="stats-gender-filter">Spol</label>
+                            <select
+                                id="stats-gender-filter"
+                                className="charts-select"
+                                value={selectedGenderId}
+                                onChange={(event) => setSelectedGenderId(event.target.value)}
+                            >
+                                <option value="">Svi</option>
+                                {genderOptions.map((option) => (
+                                    <option key={option.id} value={option.id}>
+                                        {option.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="charts-selectWrap">
+                            <label className="charts-label" htmlFor="stats-education-filter">Stupanj obrazovanja</label>
+                            <select
+                                id="stats-education-filter"
+                                className="charts-select"
+                                value={selectedEducationId}
+                                onChange={(event) => setSelectedEducationId(event.target.value)}
+                            >
+                                <option value="">Svi</option>
+                                {educationOptions.map((option) => (
+                                    <option key={option.id} value={option.id}>
+                                        {option.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
                     <div className="charts-tableTitle">Indeks lakoće po kategorijama</div>
 
                     {categoryEaseData.length === 0 ? (

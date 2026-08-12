@@ -49,7 +49,7 @@ export default function Login() {
                 localStorage.setItem("auth", JSON.stringify(data));
             }
 
-            navigate("/quiz/statistic");
+            navigate(data.isAdmin === 1 || data.isAdmin === true ? "/results-overview" : "/quiz/statistic");
         } catch (err) {
             setError(err.message || "Greška pri loginu.");
         } finally {

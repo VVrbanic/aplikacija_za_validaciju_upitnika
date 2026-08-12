@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,15 +20,15 @@ public class QuizStatisticsService {
     }
 
     @Transactional(readOnly = true)
-    public QuizStatisticsDto getStatisticsForUser(Integer userId) {
+    public QuizStatisticsDto getStatisticsForUser(Integer userId, Integer genderId, Integer educationId) {
         return new QuizStatisticsDto(
-                loadCategoryStats(userId),
+                loadCategoryStats(genderId, educationId),
                 loadQuizTrend(userId)
         );
     }
 
-    private List<QuizCategoryStatisticDto> loadCategoryStats(Integer userId) {
-        String sql = """
+    private List<QuizCategoryStatisticDto> loadCategoryStats(Integer genderId, Integer educationId) {
+        StringBuilder sql = new StringBuilder("""
                 SELECT
                     k.id AS category_id,
                     k.naziv AS category_name,
@@ -46,13 +47,30 @@ public class QuizStatisticsService {
                 JOIN odgovori o ON o.id = uo.odgovor_id
                 JOIN pitanja p ON p.id = o.pitanja_id
                 JOIN kategorije k ON k.id = p.kategorije_id
-                WHERE u.korisnici_id = ?
+                JOIN korisnici ku ON ku.id = u.korisnici_id
+                WHERE 1 = 1
+                """);
+
+        List<Object> params = new ArrayList<>();
+
+        if (genderId != null) {
+            sql.append(" AND ku.spol_id = ?");
+            params.add(genderId);
+        }
+
+        if (educationId != null) {
+            sql.append(" AND ku.stupanj_obrazovanja_id = ?");
+            params.add(educationId);
+        }
+
+        sql.append("""
+                
                 GROUP BY k.id, k.naziv
                 ORDER BY k.id
-                """;
+                """);
 
         return jdbcTemplate.query(
-                sql,
+                sql.toString(),
                 (rs, rowNum) -> new QuizCategoryStatisticDto(
                         rs.getInt("category_id"),
                         rs.getString("category_name"),
@@ -60,7 +78,7 @@ public class QuizStatisticsService {
                         rs.getInt("correct_answers"),
                         rs.getDouble("ease_index")
                 ),
-                userId
+                params.toArray()
         );
     }
 

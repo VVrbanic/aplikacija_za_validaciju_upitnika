@@ -11,6 +11,12 @@ import Quiz from "./pages/Quiz";
 import QuizSetupPage from "./pages/QuizSetupPage.jsx";
 import AddQuestionPage from "./pages/AddQuestionPage.jsx";
 import DeleteQuestionPage from "./pages/DeleteQuestionPage.jsx";
+import ResultsOverviewPage from "./pages/ResultsOverviewPage.jsx";
+import EaseIndexPage from "./pages/EaseIndexPage.jsx";
+import DiscriminationPage from "./pages/DiscriminationPage.jsx";
+import DistractorAnalysisPage from "./pages/DistractorAnalysisPage.jsx";
+import ReliabilityPage from "./pages/ReliabilityPage.jsx";
+import KnowledgeAreasPage from "./pages/KnowledgeAreasPage.jsx";
 
 const THEME_STORAGE_KEY = "theme";
 
@@ -40,6 +46,12 @@ function AppContent() {
                     <Route path="/quiz/new" element={<QuizSetupPage />} />
                     <Route path="/question/new" element={<AddQuestionPage />} />
                     <Route path="/question/delete" element={<DeleteQuestionPage />} />
+                    <Route path="/results-overview" element={<ResultsOverviewPage />} />
+                    <Route path="/item-analysis/ease-index" element={<EaseIndexPage />} />
+                    <Route path="/item-analysis/discrimination" element={<DiscriminationPage />} />
+                    <Route path="/item-analysis/distractor-analysis" element={<DistractorAnalysisPage />} />
+                    <Route path="/reliability" element={<ReliabilityPage />} />
+                    <Route path="/knowledge-areas" element={<KnowledgeAreasPage />} />
                     <Route path="/quiz/play" element={<Quiz />} />
                     <Route path="/user-info" element={<UserInfo />} />
                 </Routes>
