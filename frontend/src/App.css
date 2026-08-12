@@ -612,7 +612,7 @@ form{
 
 .question-success {
   margin: 0;
-  color: var(--success-color, #14b86a);
+  color: var( #14b86a);
 }
 
 .question-editor-note {
