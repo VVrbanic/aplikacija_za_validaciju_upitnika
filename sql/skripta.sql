@@ -24,6 +24,8 @@ CREATE TABLE korisnici (
   ime VARCHAR(45) NOT NULL,
   prezime VARCHAR(45) NOT NULL,
   datum_rodenja DATE,
+  datum_unosa TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  datum_azuriranja TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   is_admin INT NOT NULL DEFAULT 0,
 
   korisnicko_ime VARCHAR(45) NOT NULL,
@@ -62,6 +64,8 @@ CREATE TABLE nedopusteni_tokeni (
 CREATE TABLE upitnik (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   korisnici_id INT NOT NULL,
+  datum_unosa TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  datum_azuriranja TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_upitnik_korisnici
     FOREIGN KEY (korisnici_id)
@@ -77,6 +81,8 @@ CREATE TABLE pitanja (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   pitanje VARCHAR(256) NOT NULL,
   kategorije_id INT NOT NULL,
+  datum_unosa TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  datum_azuriranja TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   aktivno INT NOT NULL DEFAULT 1,
 
   CONSTRAINT fk_pitanja_kategorije
@@ -94,8 +100,8 @@ CREATE TABLE odgovori (
   odgovor VARCHAR(256) NOT NULL,
 
   aktivno VARCHAR(45) NOT NULL,        -- kao na slici; ako želiš bool, reci pa promijenim
-  datum_unosa DATE,
-  datum_azuriranja DATE,
+  datum_unosa TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  datum_azuriranja TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   tocan_odgovor INT NOT NULL DEFAULT 0, -- 0/1
   pitanja_id INT NOT NULL,

@@ -27,7 +27,7 @@ public class QuizService {
         }
 
         Integer quizId = jdbcTemplate.queryForObject(
-                "INSERT INTO upitnik (korisnici_id) VALUES (?) RETURNING id",
+                "INSERT INTO upitnik (korisnici_id, datum_unosa, datum_azuriranja) VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id",
                 Integer.class,
                 userId
         );

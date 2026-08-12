@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -42,6 +43,12 @@ public class User {
     @Column(name="aktivan")
     private Boolean isActive = true;
 
+    @Column(name = "datum_unosa")
+    private LocalDateTime createDate;
+
+    @Column(name = "datum_azuriranja")
+    private LocalDateTime editDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stupanj_obrazovanja_id", nullable = false)
     private Education education;
@@ -49,4 +56,16 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "spol_id", nullable = false)
     private Gender gander;
+
+    @PrePersist
+    public void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        createDate = now;
+        editDate = now;
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        editDate = LocalDateTime.now();
+    }
 }

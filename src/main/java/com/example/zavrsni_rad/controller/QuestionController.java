@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -102,8 +101,6 @@ public class QuestionController {
         answer.setQuestion(question);
         answer.setAnswer(value.trim());
         answer.setActive(1);
-        answer.setCreateDate(LocalDate.now());
-        answer.setEditDate(LocalDate.now());
         answer.setCorrectAnswer(isCorrect ? 1 : 0);
         return answer;
     }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -24,10 +24,10 @@ public class Answer {
     private Integer active;
 
     @Column(name = "datum_unosa")
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "datum_azuriranja")
-    private LocalDate editDate;
+    private LocalDateTime editDate;
 
     @Column(name = "tocan_odgovor")
     private Integer correctAnswer;
@@ -36,4 +36,16 @@ public class Answer {
     @JoinColumn(name = "pitanja_id")
     @JsonBackReference
     private Question question;
+
+    @PrePersist
+    public void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        createDate = now;
+        editDate = now;
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        editDate = LocalDateTime.now();
+    }
 }

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,12 @@ public class Question {
     @Column(name = "aktivno")
     private Integer active;
 
+    @Column(name = "datum_unosa")
+    private LocalDateTime createDate;
+
+    @Column(name = "datum_azuriranja")
+    private LocalDateTime editDate;
+
     @OneToMany(
             mappedBy = "question",
             cascade = CascadeType.ALL,
@@ -42,4 +49,15 @@ public class Question {
     @Builder.Default
     private List<Answer> answers = new ArrayList<>();
 
+    @PrePersist
+    public void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        createDate = now;
+        editDate = now;
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        editDate = LocalDateTime.now();
+    }
 }
