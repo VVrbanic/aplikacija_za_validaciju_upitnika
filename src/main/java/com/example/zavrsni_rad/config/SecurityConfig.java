@@ -26,6 +26,7 @@ public class SecurityConfig {
                                 "/question/**",
                                 "/quiz/**"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/quiz/statistics").authenticated()
                         .requestMatchers(HttpMethod.GET,
                                 "/gender/**",
                                 "/education/**",

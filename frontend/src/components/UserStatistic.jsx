@@ -23,10 +23,6 @@ export default function UserStatistic() {
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [categoryStats, setCategoryStats] = useState([]);
     const [quizTrend, setQuizTrend] = useState([]);
-    const [genderOptions, setGenderOptions] = useState([]);
-    const [educationOptions, setEducationOptions] = useState([]);
-    const [selectedGenderId, setSelectedGenderId] = useState("");
-    const [selectedEducationId, setSelectedEducationId] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -39,32 +35,13 @@ export default function UserStatistic() {
                 const authHeaders = {
                     Authorization: `Bearer ${getAuthToken()}`,
                 };
-                const params = {};
-
-                if (selectedGenderId !== "") {
-                    params.genderId = selectedGenderId;
-                }
-
-                if (selectedEducationId !== "") {
-                    params.educationId = selectedEducationId;
-                }
-
-                const [statsRes, genderRes, educationRes] = await Promise.all([
-                    api.get("/quiz/statistics", {
-                        headers: authHeaders,
-                        params,
-                    }),
-                    api.get("/gender"),
-                    api.get("/education"),
-                ]);
+                const statsRes = await api.get("/quiz/statistics", { headers: authHeaders });
 
                 const nextCategoryStats = statsRes.data?.categoryStats ?? [];
                 const nextQuizTrend = statsRes.data?.quizTrend ?? [];
 
                 setCategoryStats(nextCategoryStats);
                 setQuizTrend(nextQuizTrend);
-                setGenderOptions(genderRes.data ?? []);
-                setEducationOptions(educationRes.data ?? []);
                 setSelectedCategoryId(nextCategoryStats[0]?.categoryId ?? null);
             } catch (e) {
                 setError("Ne mogu dohvatiti statistiku kvizova.");
@@ -74,13 +51,14 @@ export default function UserStatistic() {
         };
 
         loadStatistics();
-    }, [selectedGenderId, selectedEducationId]);
+    }, []);
 
     const categoryEaseData = useMemo(() => {
         return categoryStats.map((row) => ({
             categoryId: row.categoryId,
             category: row.categoryName,
             easeIndex: Number(clamp01(row.easeIndex).toFixed(2)),
+            totalEaseIndex: Number(clamp01(row.totalEaseIndex).toFixed(2)),
             totalAnswers: Number(row.totalAnswers ?? 0),
             correctAnswers: Number(row.correctAnswers ?? 0),
         }));
@@ -132,49 +110,13 @@ export default function UserStatistic() {
                 <div>
                     <h2 className="charts-title">Statistika indeksa lakoće</h2>
                     <p className="charts-subtitle">
-                        Prvi graf prikazuje uspješnost po kategoriji, a drugi trend uspješnosti po svakom
-                        riješenom kvizu prijavljenog korisnika.
+                        Tablica i histogram prikazuju indeks lakoće po kategorijama prijavljenog korisnika,
+                        a drugi graf trend uspješnosti po svakom riješenom kvizu.
                     </p>
                 </div>
 
                 <div className="charts-tableWrap">
-                    <div className="charts-header">
-                        <div className="charts-selectWrap">
-                            <label className="charts-label" htmlFor="stats-gender-filter">Spol</label>
-                            <select
-                                id="stats-gender-filter"
-                                className="charts-select"
-                                value={selectedGenderId}
-                                onChange={(event) => setSelectedGenderId(event.target.value)}
-                            >
-                                <option value="">Svi</option>
-                                {genderOptions.map((option) => (
-                                    <option key={option.id} value={option.id}>
-                                        {option.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="charts-selectWrap">
-                            <label className="charts-label" htmlFor="stats-education-filter">Stupanj obrazovanja</label>
-                            <select
-                                id="stats-education-filter"
-                                className="charts-select"
-                                value={selectedEducationId}
-                                onChange={(event) => setSelectedEducationId(event.target.value)}
-                            >
-                                <option value="">Svi</option>
-                                {educationOptions.map((option) => (
-                                    <option key={option.id} value={option.id}>
-                                        {option.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="charts-tableTitle">Indeks lakoće po kategorijama</div>
+                    <div className="charts-tableTitle">Usporedba indeksa lakoće po kategorijama</div>
 
                     {categoryEaseData.length === 0 ? (
                         <div className="charts-note">Nema riješenih odgovora raspoređenih po kategorijama.</div>
@@ -186,7 +128,8 @@ export default function UserStatistic() {
                                     <tr>
                                         <th style={{ width: 120, textAlign: "center" }}>ID</th>
                                         <th style={{ width: 320, textAlign: "center" }}>Kategorija</th>
-                                        <th style={{ width: 180, textAlign: "right" }}>Indeks</th>
+                                        <th style={{ width: 180, textAlign: "right" }}>Moj indeks</th>
+                                        <th style={{ width: 180, textAlign: "right" }}>Ukupni indeks</th>
                                     </tr>
                                     </thead>
 
@@ -212,6 +155,9 @@ export default function UserStatistic() {
                                                 <td style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
                                                     {row.easeIndex.toFixed(2)}
                                                 </td>
+                                                <td style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                                                    {row.totalEaseIndex.toFixed(2)}
+                                                </td>
                                             </tr>
                                         );
                                     })}
@@ -223,7 +169,8 @@ export default function UserStatistic() {
                                 <div className="charts-smallStat">
                                     Odabrano: <b>{selectedCategory.category}</b> | indeks:{" "}
                                     <b>{selectedCategory.easeIndex.toFixed(2)}</b> | točno:{" "}
-                                    <b>{selectedCategory.correctAnswers}</b> / <b>{selectedCategory.totalAnswers}</b>
+                                    <b>{selectedCategory.correctAnswers}</b> / <b>{selectedCategory.totalAnswers}</b> | ukupni indeks:{" "}
+                                    <b>{selectedCategory.totalEaseIndex.toFixed(2)}</b>
                                 </div>
                             )}
                         </>
@@ -256,10 +203,12 @@ export default function UserStatistic() {
                                 <YAxis domain={[0, 1]} />
                                 <Tooltip
                                     formatter={(value, name, item) => {
-                                        if (name === "easeIndex") {
+                                        if (name === "easeIndex" || name === "totalEaseIndex") {
                                             return [
                                                 Number(value).toFixed(2),
-                                                `Indeks lakoće (${item?.payload?.correctAnswers ?? 0}/${item?.payload?.totalAnswers ?? 0})`,
+                                                name === "easeIndex"
+                                                    ? `Moj indeks lakoće (${item?.payload?.correctAnswers ?? 0}/${item?.payload?.totalAnswers ?? 0})`
+                                                    : "Ukupni indeks lakoće",
                                             ];
                                         }
                                         return [value, name];
@@ -267,7 +216,8 @@ export default function UserStatistic() {
                                     labelFormatter={(label) => `Kategorija: ${label}`}
                                 />
                                 <Legend />
-                                <Bar dataKey="easeIndex" name="Indeks lakoće" />
+                                <Bar dataKey="easeIndex" name="Moj indeks lakoće" fill="#6d5dfc" />
+                                <Bar dataKey="totalEaseIndex" name="Ukupni indeks lakoće" fill="#3d9860" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>

@@ -172,6 +172,9 @@ export default function RegisterPage() {
             <button className="login-button" type="submit" disabled={loadingLookups || !!lookupError}>
                 Registriraj se
             </button>
+            <button className="login-button secondary" type="button" onClick={() => navigate("/login")}>
+                Login
+            </button>
         </form>
     );
 }

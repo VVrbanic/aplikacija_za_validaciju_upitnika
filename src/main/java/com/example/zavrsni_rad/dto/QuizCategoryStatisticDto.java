@@ -6,19 +6,22 @@ public class QuizCategoryStatisticDto {
     private Integer totalAnswers;
     private Integer correctAnswers;
     private Double easeIndex;
+    private Double totalEaseIndex;
 
     public QuizCategoryStatisticDto(
             Integer categoryId,
             String categoryName,
             Integer totalAnswers,
             Integer correctAnswers,
-            Double easeIndex
+            Double easeIndex,
+            Double totalEaseIndex
     ) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.totalAnswers = totalAnswers;
         this.correctAnswers = correctAnswers;
         this.easeIndex = easeIndex;
+        this.totalEaseIndex = totalEaseIndex;
     }
 
     public Integer getCategoryId() {
@@ -39,5 +42,9 @@ public class QuizCategoryStatisticDto {
 
     public Double getEaseIndex() {
         return easeIndex;
+    }
+
+    public Double getTotalEaseIndex() {
+        return totalEaseIndex;
     }
 }

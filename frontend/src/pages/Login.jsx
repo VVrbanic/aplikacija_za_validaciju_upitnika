@@ -67,7 +67,7 @@ export default function Login() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            <form className= "login-form" onSubmit={handleSubmit}>
                 <div>
                     <input
                         id="userName"

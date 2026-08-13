@@ -56,12 +56,9 @@ public class QuizController {
     }
 
     @GetMapping("/statistics")
-    public QuizStatisticsDto statistics(
-            @RequestParam(required = false) Integer genderId,
-            @RequestParam(required = false) Integer educationId
-    ) {
+    public QuizStatisticsDto statistics() {
         Integer userId = currentUserService.getCurrentUserId();
-        return quizStatisticsService.getStatisticsForUser(userId, genderId, educationId);
+        return quizStatisticsService.getStatisticsForUser(userId);
     }
 
     @GetMapping("/admin/results-summary")
@@ -114,4 +111,3 @@ public class QuizController {
         }
     }
 }
-
