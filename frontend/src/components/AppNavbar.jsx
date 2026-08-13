@@ -3,12 +3,23 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import UserIcon from "./UserIcon";
 import "../App.css";
 
+function readIsAdmin() {
+    try {
+        const authRaw = localStorage.getItem("auth");
+        const auth = authRaw ? JSON.parse(authRaw) : null;
+        console.log(auth);
+        return auth?.isAdmin === true || Number(auth?.isAdmin) === 1;
+    } catch {
+        return false;
+    }
+}
+
 export default function AppNavbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [itemAnalysisOpen, setItemAnalysisOpen] = React.useState(false);
     const itemAnalysisMenuRef = React.useRef(null);
-    const [isAdmin, setIsAdmin] = React.useState(false);
+    const [isAdmin, setIsAdmin] = React.useState(readIsAdmin);
 
     React.useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -22,14 +33,8 @@ export default function AppNavbar() {
     }, []);
 
     React.useEffect(() => {
-        try {
-            const authRaw = localStorage.getItem("auth");
-            const auth = authRaw ? JSON.parse(authRaw) : null;
-            setIsAdmin(auth?.isAdmin === 1 || auth?.isAdmin === true);
-            setItemAnalysisOpen(false);
-        } catch {
-            setIsAdmin(false);
-        }
+        setIsAdmin(readIsAdmin());
+        setItemAnalysisOpen(false);
     }, [location.pathname]);
 
     return (
