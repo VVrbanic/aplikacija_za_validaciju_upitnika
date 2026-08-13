@@ -16,7 +16,6 @@ import EaseIndexPage from "./pages/EaseIndexPage.jsx";
 import DiscriminationPage from "./pages/DiscriminationPage.jsx";
 import DistractorAnalysisPage from "./pages/DistractorAnalysisPage.jsx";
 import ReliabilityPage from "./pages/ReliabilityPage.jsx";
-import KnowledgeAreasPage from "./pages/KnowledgeAreasPage.jsx";
 
 const THEME_STORAGE_KEY = "theme";
 
@@ -51,7 +50,6 @@ function AppContent() {
                     <Route path="/item-analysis/discrimination" element={<DiscriminationPage />} />
                     <Route path="/item-analysis/distractor-analysis" element={<DistractorAnalysisPage />} />
                     <Route path="/reliability" element={<ReliabilityPage />} />
-                    <Route path="/knowledge-areas" element={<KnowledgeAreasPage />} />
                     <Route path="/quiz/play" element={<Quiz />} />
                     <Route path="/user-info" element={<UserInfo />} />
                 </Routes>

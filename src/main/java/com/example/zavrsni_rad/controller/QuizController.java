@@ -1,12 +1,6 @@
 package com.example.zavrsni_rad.controller;
 
-import com.example.zavrsni_rad.dto.QuizAnswerList;
-import com.example.zavrsni_rad.dto.QuizAnswerResponse;
-import com.example.zavrsni_rad.dto.QuizStatisticsDto;
-import com.example.zavrsni_rad.dto.AdminResultsSummaryDto;
-import com.example.zavrsni_rad.dto.ItemDiscriminationDto;
-import com.example.zavrsni_rad.dto.DistractorAnswerDto;
-import com.example.zavrsni_rad.dto.DistractorQuestionDto;
+import com.example.zavrsni_rad.dto.*;
 import com.example.zavrsni_rad.entity.User;
 import com.example.zavrsni_rad.service.AdminResultsService;
 import com.example.zavrsni_rad.service.CurrentUserService;
@@ -14,6 +8,7 @@ import com.example.zavrsni_rad.service.QuizService;
 import com.example.zavrsni_rad.service.QuizStatisticsService;
 import com.example.zavrsni_rad.service.ItemDiscriminationService;
 import com.example.zavrsni_rad.service.DistractorAnalysisService;
+import com.example.zavrsni_rad.service.EaseIndexService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +29,7 @@ public class QuizController {
     private final AdminResultsService adminResultsService;
     private final ItemDiscriminationService itemDiscriminationService;
     private final DistractorAnalysisService distractorAnalysisService;
+    private final EaseIndexService easeIndexService;
 
     public QuizController(
             QuizService quizService,
@@ -41,7 +37,8 @@ public class QuizController {
             QuizStatisticsService quizStatisticsService,
             AdminResultsService adminResultsService,
             ItemDiscriminationService itemDiscriminationService,
-            DistractorAnalysisService distractorAnalysisService
+            DistractorAnalysisService distractorAnalysisService,
+            EaseIndexService easeIndexService
     ) {
         this.quizService = quizService;
         this.currentUserService = currentUserService;
@@ -49,6 +46,7 @@ public class QuizController {
         this.adminResultsService = adminResultsService;
         this.itemDiscriminationService = itemDiscriminationService;
         this.distractorAnalysisService = distractorAnalysisService;
+        this.easeIndexService = easeIndexService;
     }
 
     @PostMapping("/submit")
@@ -95,6 +93,18 @@ public class QuizController {
     public List<DistractorAnswerDto> distractorAnswerDetails(@PathVariable Integer questionId) {
         requireAdmin();
         return distractorAnalysisService.getAnswerDetails(questionId);
+    }
+
+    @GetMapping("/admin/ease-index")
+    public List<EaseIndexItemDto> easeIndex() {
+        requireAdmin();
+        return easeIndexService.getItemEaseIndexes();
+    }
+
+    @GetMapping("/admin/ease-index/quizzes")
+    public List<QuizTrendPointDto> quizEaseIndexes() {
+        requireAdmin();
+        return easeIndexService.getQuizEaseIndexes();
     }
 
     private void requireAdmin() {

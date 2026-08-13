@@ -107,13 +107,6 @@ export default function AppNavbar() {
                             Pouzdanost
                         </NavLink>
 
-                        <NavLink
-                            to="/knowledge-areas"
-                            className={({ isActive }) => `app-navbar-link${isActive ? " active" : ""}`}
-                        >
-                            Područja znanja
-                        </NavLink>
-
                         <div className="app-navbar-dropdown" ref={questionsMenuRef}>
                             <button
                                 type="button"
