@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { api, getAuthToken } from "../api";
+import QuestionManagementTabs from "../components/QuestionManagementTabs";
 import "../App.css";
 
 export default function DeleteQuestionPage() {
@@ -133,10 +134,11 @@ export default function DeleteQuestionPage() {
     };
 
     return (
-        <div className="question-delete-page">
-            <div className="title">Izbriši pitanje</div>
+        <div className="admin-tool-page">
+            <div className="title">Pitanja</div>
 
             <div className="question-delete-card">
+                <QuestionManagementTabs />
                 <div className="question-delete-toolbar">
                     <div className="question-delete-filters">
                         <label className="question-delete-field">

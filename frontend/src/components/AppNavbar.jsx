@@ -6,17 +6,12 @@ import "../App.css";
 export default function AppNavbar() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [questionsOpen, setQuestionsOpen] = React.useState(false);
     const [itemAnalysisOpen, setItemAnalysisOpen] = React.useState(false);
-    const questionsMenuRef = React.useRef(null);
     const itemAnalysisMenuRef = React.useRef(null);
     const [isAdmin, setIsAdmin] = React.useState(false);
 
     React.useEffect(() => {
         const handleOutsideClick = (event) => {
-            if (questionsMenuRef.current && !questionsMenuRef.current.contains(event.target)) {
-                setQuestionsOpen(false);
-            }
             if (itemAnalysisMenuRef.current && !itemAnalysisMenuRef.current.contains(event.target)) {
                 setItemAnalysisOpen(false);
             }
@@ -31,7 +26,6 @@ export default function AppNavbar() {
             const authRaw = localStorage.getItem("auth");
             const auth = authRaw ? JSON.parse(authRaw) : null;
             setIsAdmin(auth?.isAdmin === 1 || auth?.isAdmin === true);
-            setQuestionsOpen(false);
             setItemAnalysisOpen(false);
         } catch {
             setIsAdmin(false);
@@ -107,44 +101,12 @@ export default function AppNavbar() {
                             Pouzdanost
                         </NavLink>
 
-                        <div className="app-navbar-dropdown" ref={questionsMenuRef}>
-                            <button
-                                type="button"
-                                className="app-navbar-link app-navbar-dropdown-toggle"
-                                aria-haspopup="menu"
-                                aria-expanded={questionsOpen}
-                                onClick={() => setQuestionsOpen((open) => !open)}
-                            >
-                                Pitanja
-                            </button>
-
-                            {questionsOpen && (
-                                <div className="app-navbar-dropdown-menu" role="menu" aria-label="Pitanja">
-                                    <button
-                                        type="button"
-                                        className="app-navbar-dropdown-item"
-                                        role="menuitem"
-                                        onClick={() => {
-                                            setQuestionsOpen(false);
-                                            navigate("/question/new");
-                                        }}
-                                    >
-                                        Dodaj pitanje
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="app-navbar-dropdown-item"
-                                        role="menuitem"
-                                        onClick={() => {
-                                            setQuestionsOpen(false);
-                                            navigate("/question/delete");
-                                        }}
-                                    >
-                                        Izbrisi pitanje
-                                    </button>
-                                </div>
-                            )}
-                        </div>
+                        <NavLink
+                            to="/question/new"
+                            className={({ isActive }) => `app-navbar-link${isActive ? " active" : ""}`}
+                        >
+                            Pitanja
+                        </NavLink>
                     </>
                 ) : (
                     <>

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, getAuthToken } from "../api";
+import QuestionManagementTabs from "../components/QuestionManagementTabs";
 import "../App.css";
 
 const INITIAL_FORM = {
@@ -149,15 +150,10 @@ export default function AddQuestionPage() {
     };
 
     return (
-        <div className="register-form">
-            <div className="title">Dodaj pitanje</div>
-
-            <div className="question-editor-page">
+        <div className="admin-tool-page">
+            <div className="title">Pitanja</div>
                 <form className="question-editor-card" onSubmit={handleSubmit}>
-                    <p className="question-editor-subtitle">
-                        Unesi kategoriju, pitanje, četiri odgovora i označi točan odgovor.
-                    </p>
-
+                    <QuestionManagementTabs/>
                     {loading && <p>Učitavam kategorije...</p>}
                     {!loading && generalError && <p className="validation-error">{generalError}</p>}
                     {successMessage && <p className="question-success">{successMessage}</p>}
@@ -177,7 +173,8 @@ export default function AddQuestionPage() {
                                         </option>
                                     ))}
                                 </select>
-                                {fieldErrors.categoryId && <small className="validation-error">{fieldErrors.categoryId}</small>}
+                                {fieldErrors.categoryId &&
+                                    <small className="validation-error">{fieldErrors.categoryId}</small>}
                             </label>
 
                             <label className="question-editor-field">
@@ -192,11 +189,12 @@ export default function AddQuestionPage() {
                                 <div className="question-editor-meta">
                                     <small>{form.question.length}/1000 znakova</small>
                                 </div>
-                                {fieldErrors.question && <small className="validation-error">{fieldErrors.question}</small>}
+                                {fieldErrors.question &&
+                                    <small className="validation-error">{fieldErrors.question}</small>}
                             </label>
 
                             <div className="question-editor-answers">
-                                {ANSWER_KEYS.map(({ key, field, label }) => (
+                                {ANSWER_KEYS.map(({key, field, label}) => (
                                     <div key={key} className="question-answer-row">
                                         <label className="question-answer-label">
                                             <span>Odgovor {label}</span>
@@ -221,19 +219,22 @@ export default function AddQuestionPage() {
                                         </label>
 
                                         {fieldErrors[field] && (
-                                            <small className="validation-error question-answer-error">{fieldErrors[field]}</small>
+                                            <small
+                                                className="validation-error question-answer-error">{fieldErrors[field]}</small>
                                         )}
                                     </div>
                                 ))}
 
-                                {fieldErrors.correctAnswer && <small className="validation-error">{fieldErrors.correctAnswer}</small>}
+                                {fieldErrors.correctAnswer &&
+                                    <small className="validation-error">{fieldErrors.correctAnswer}</small>}
                             </div>
 
                             <div className="quiz-setup-actions">
                                 <button type="submit" className="login-button" disabled={saving}>
                                     {saving ? "Spremam..." : "Spremi pitanje"}
                                 </button>
-                                <button type="button" className="login-button secondary" onClick={() => navigate("/quiz/new")}>
+                                <button type="button" className="login-button secondary"
+                                        onClick={() => navigate("/quiz/new")}>
                                     Natrag
                                 </button>
                             </div>
@@ -247,6 +248,5 @@ export default function AddQuestionPage() {
                     )}
                 </form>
             </div>
-        </div>
-    );
-}
+            );
+            }

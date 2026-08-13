@@ -70,6 +70,8 @@ form{
 
 .register-form{
   max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .app-shell.with-navbar {
@@ -1077,7 +1079,8 @@ form{
   border-bottom: 1px solid var(--border-soft);
 }
 
-.item-analysis-tabs button {
+.item-analysis-tabs button,
+.item-analysis-tabs a {
   padding: 10px 14px;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -1086,12 +1089,19 @@ form{
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .item-analysis-tabs button:hover,
-.item-analysis-tabs button.active {
+.item-analysis-tabs button.active,
+.item-analysis-tabs a:hover,
+.item-analysis-tabs a.active {
   color: var(--text-primary);
   border-bottom-color: var(--link-color);
+}
+
+.question-management-tabs {
+  margin: 0 0 20px;
 }
 
 .ease-index-filters {
