@@ -58,7 +58,7 @@ export default function AppNavbar() {
                                 aria-expanded={itemAnalysisOpen}
                                 onClick={() => setItemAnalysisOpen((open) => !open)}
                             >
-                                Analiza cestica
+                                Analiza čestica
                             </button>
 
                             {itemAnalysisOpen && (
@@ -72,7 +72,7 @@ export default function AppNavbar() {
                                             navigate("/item-analysis/ease-index");
                                         }}
                                     >
-                                        Indeks lakoce
+                                        Indeks lakoće
                                     </button>
                                     <button
                                         type="button"
@@ -83,7 +83,7 @@ export default function AppNavbar() {
                                             navigate("/item-analysis/discrimination");
                                         }}
                                     >
-                                        Distrimativnost
+                                        Diskriminativnost
                                     </button>
                                     <button
                                         type="button"

@@ -1113,6 +1113,33 @@ form{
 .item-analysis-table td { color: var(--text-secondary); }
 .item-analysis-table td:first-child { min-width: 300px; color: var(--text-primary); }
 
+.distractor-summary-table tbody tr.selected,
+.distractor-summary-table tbody tr:hover { background: var(--bg-muted); }
+
+.question-detail-button {
+  width: 100%; padding: 0; border: 0; background: transparent; color: var(--text-primary);
+  font: inherit; text-align: left; cursor: pointer;
+}
+
+.question-detail-button:hover,
+.question-detail-button:focus-visible { text-decoration: underline; }
+
+.distractor-details { margin-top: 32px; }
+.distractor-details h2 { margin: 0; color: var(--text-primary); font-size: 19px; line-height: 1.4; }
+
+.distractor-inline-detail > td {
+  padding: 0 16px 20px;
+  background: var(--bg-muted);
+}
+
+.distractor-inline-detail .distractor-details { margin-top: 20px; }
+.distractor-answer-table { min-width: 800px; }
+
+.distractor-answer-table tbody tr.negative-distractor td {
+  background: rgba(190, 45, 45, 0.16);
+  color: #d95c5c;
+}
+
 @media (max-width: 720px) {
   .admin-tool-page {
     width: 100%;

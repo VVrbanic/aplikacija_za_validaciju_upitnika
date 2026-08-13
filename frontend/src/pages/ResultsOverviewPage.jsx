@@ -43,9 +43,6 @@ export default function ResultsOverviewPage() {
             <div className="title">Pregled rezultata</div>
 
             <div className="admin-tool-card">
-                <p className="admin-tool-description">
-                    Sazeta analitika svih dostupnih rezultata kvizova u sustavu.
-                </p>
 
                 {loading && <p className="admin-tool-note">Učitavam analitiku...</p>}
                 {error && <p className="validation-error">{error}</p>}
