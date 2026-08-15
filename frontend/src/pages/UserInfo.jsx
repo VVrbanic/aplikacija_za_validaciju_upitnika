@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
 const viewFields = [
     ["id", "ID"],
     ["firstName", "Ime"],
@@ -48,6 +50,9 @@ function toFormState(user) {
         email: user?.email ?? "",
         ganderId: user?.ganderId ? String(user.ganderId) : "",
         educationId: user?.educationId ? String(user.educationId) : "",
+        currentPassword: "",
+        newPassword: "",
+        repeatNewPassword: "",
     };
 }
 
@@ -62,6 +67,7 @@ export default function UserInfo() {
     const [editing, setEditing] = useState(false);
     const [error, setError] = useState("");
     const [saveError, setSaveError] = useState("");
+    const [saveSuccess, setSaveSuccess] = useState("");
     const [deleteError, setDeleteError] = useState("");
     const [deleting, setDeleting] = useState(false);
     const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
@@ -125,6 +131,7 @@ export default function UserInfo() {
 
     const startEdit = () => {
         setSaveError("");
+        setSaveSuccess("");
         setDeleteError("");
         setEditing(true);
         setForm(toFormState(user));
@@ -132,6 +139,7 @@ export default function UserInfo() {
 
     const cancelEdit = () => {
         setSaveError("");
+        setSaveSuccess("");
         setDeleteError("");
         setEditing(false);
         setForm(toFormState(user));
@@ -141,10 +149,24 @@ export default function UserInfo() {
         e.preventDefault();
         setSaving(true);
         setSaveError("");
+        setSaveSuccess("");
 
         try {
             if (!form.firstName || !form.lastName || !form.userName || !form.email || !form.ganderId || !form.educationId) {
                 throw new Error("Popuni sva obavezna polja.");
+            }
+
+            const passwordChangeRequested = form.currentPassword || form.newPassword || form.repeatNewPassword;
+            if (passwordChangeRequested) {
+                if (!form.currentPassword || !form.newPassword || !form.repeatNewPassword) {
+                    throw new Error("Za promjenu lozinke potrebno je ispuniti sva polja.");
+                }
+                if (!passwordRegex.test(form.newPassword)) {
+                    throw new Error("Nova lozinka mora imati najmanje 8 znakova, veliko i malo slovo te broj.");
+                }
+                if (form.newPassword !== form.repeatNewPassword) {
+                    throw new Error("Nove lozinke se ne podudaraju.");
+                }
             }
 
             const token = localStorage.getItem("token");
@@ -156,6 +178,9 @@ export default function UserInfo() {
                 email: form.email.trim(),
                 ganderId: Number(form.ganderId),
                 educationId: Number(form.educationId),
+                currentPassword: form.currentPassword,
+                newPassword: form.newPassword,
+                repeatNewPassword: form.repeatNewPassword,
             };
 
             const res = await axios.put("http://localhost:8080/users/me", payload, {
@@ -169,6 +194,7 @@ export default function UserInfo() {
             setForm(toFormState(res.data));
             localStorage.setItem("auth", JSON.stringify(res.data));
             setEditing(false);
+            setSaveSuccess("Podaci su uspješno promijenjeni.");
         } catch (err) {
             setSaveError(err?.response?.data?.message || err.message || "Greška pri spremanju podataka.");
         } finally {
@@ -263,6 +289,7 @@ export default function UserInfo() {
                 </div>
 
                 {saveError && <p className="validation-error">{saveError}</p>}
+                {saveSuccess && <p className="user-info-success">{saveSuccess}</p>}
                 {deleteError && <p className="validation-error">{deleteError}</p>}
 
                 {editing ? (
@@ -309,6 +336,24 @@ export default function UserInfo() {
                                 ))}
                             </select>
                         </label>
+                        <div className="user-info-password-section">
+                            <p className="user-info-password-title">Promjena lozinke</p>
+                            <p className="user-info-password-note">Ostavi prazno ako ne želiš promijeniti lozinku.</p>
+                            <div className="user-info-password-fields">
+                                <label className="user-info-field">
+                                    <span className="user-info-label">Stara lozinka</span>
+                                    <input type="password" name="currentPassword" value={form.currentPassword} onChange={onChange} autoComplete="current-password" />
+                                </label>
+                                <label className="user-info-field">
+                                    <span className="user-info-label">Nova lozinka</span>
+                                    <input type="password" name="newPassword" value={form.newPassword} onChange={onChange} autoComplete="new-password" />
+                                </label>
+                                <label className="user-info-field">
+                                    <span className="user-info-label">Ponovi novu lozinku</span>
+                                    <input type="password" name="repeatNewPassword" value={form.repeatNewPassword} onChange={onChange} autoComplete="new-password" />
+                                </label>
+                            </div>
+                        </div>
                     </form>
                 ) : (
                     <>

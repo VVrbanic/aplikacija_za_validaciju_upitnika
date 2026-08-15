@@ -998,6 +998,37 @@ form{
   margin: 0;
 }
 
+.user-info-success {
+  margin: 0 0 14px;
+  color: var(--analysis-good-text);
+  font-weight: 700;
+}
+
+.user-info-password-section {
+  grid-column: 1 / -1;
+  padding: 18px;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: var(--bg-muted);
+}
+
+.user-info-password-title {
+  margin: 0;
+  font-weight: 800;
+}
+
+.user-info-password-note {
+  margin: 4px 0 14px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.user-info-password-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .admin-tool-page {
   width: 80%;
   max-width: none;
@@ -1263,6 +1294,10 @@ form{
   }
 
   .user-info-form {
+    grid-template-columns: 1fr;
+  }
+
+  .user-info-password-fields {
     grid-template-columns: 1fr;
   }
 

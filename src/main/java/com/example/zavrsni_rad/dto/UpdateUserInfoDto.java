@@ -29,4 +29,10 @@ public class UpdateUserInfoDto {
 
     @NotNull
     private Integer ganderId;
+
+    private String currentPassword;
+
+    private String newPassword;
+
+    private String repeatNewPassword;
 }

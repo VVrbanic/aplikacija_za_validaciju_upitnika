@@ -17,8 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 @Service
 public class UserService {
+
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
 
     private final CurrentUserService currentUserService;
     private final UserRepository userRepository;
@@ -110,6 +114,8 @@ public class UserService {
         Gender gender = genderRepository.findById(model.getGanderId().longValue())
                 .orElseThrow(() -> new IllegalArgumentException("Ne postoji spol_id=" + model.getGanderId()));
 
+        updatePasswordIfRequested(currentUser, model);
+
         currentUser.setFirstName(model.getFirstName());
         currentUser.setLastName(model.getLastName());
         currentUser.setDateOfBirth(model.getDateOfBirth());
@@ -120,6 +126,38 @@ public class UserService {
 
         User saved = userRepository.save(currentUser);
         return userInfoMapper.map(saved);
+    }
+
+    private void updatePasswordIfRequested(User currentUser, UpdateUserInfoDto model) {
+        boolean passwordChangeRequested = hasText(model.getCurrentPassword())
+                || hasText(model.getNewPassword())
+                || hasText(model.getRepeatNewPassword());
+
+        if (!passwordChangeRequested) {
+            return;
+        }
+
+        if (!hasText(model.getCurrentPassword()) || !hasText(model.getNewPassword()) || !hasText(model.getRepeatNewPassword())) {
+            throw new IllegalArgumentException("Za promjenu lozinke potrebno je ispuniti sva polja.");
+        }
+
+        if (!passwordEncoder.matches(model.getCurrentPassword(), currentUser.getPassword())) {
+            throw new IllegalArgumentException("Stara lozinka nije točna.");
+        }
+
+        if (!PASSWORD_PATTERN.matcher(model.getNewPassword()).matches()) {
+            throw new IllegalArgumentException("Nova lozinka mora imati najmanje 8 znakova, veliko i malo slovo te broj.");
+        }
+
+        if (!model.getNewPassword().equals(model.getRepeatNewPassword())) {
+            throw new IllegalArgumentException("Nove lozinke se ne podudaraju.");
+        }
+
+        currentUser.setPassword(passwordEncoder.encode(model.getNewPassword()));
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.isBlank();
     }
 
     public void logout(String authorizationHeader) {
