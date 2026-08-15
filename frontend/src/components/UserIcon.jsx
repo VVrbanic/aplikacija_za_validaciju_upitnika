@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
+import { createPortal } from "react-dom";
 import "../App.css";
 
 const THEME_STORAGE_KEY = "theme";
@@ -95,7 +96,7 @@ export default function UserIcon() {
                 </div>
             )}
 
-            {confirmSignOutOpen && (
+            {confirmSignOutOpen && createPortal(
                 <div className="signout-backdrop" role="presentation" onClick={cancelSignOut}>
                     <div
                         className="signout-modal"
@@ -117,7 +118,7 @@ export default function UserIcon() {
                         </div>
                     </div>
                 </div>
-            )}
+            , document.body)}
         </div>
     );
 }

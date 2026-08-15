@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { api, getAuthToken } from "../api";
 import QuestionManagementTabs from "../components/QuestionManagementTabs";
 import "../App.css";
@@ -230,10 +231,10 @@ export default function DeleteQuestionPage() {
                 )}
             </div>
 
-            {confirmOpen && (
-                <div className="question-delete-backdrop" role="dialog" aria-modal="true">
-                    <div className="question-delete-modal">
-                        <p className="question-delete-modalText">
+            {confirmOpen && createPortal(
+                <div className="question-delete-backdrop" role="presentation" onClick={closeConfirm}>
+                    <div className="question-delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-questions-title" onClick={(event) => event.stopPropagation()}>
+                        <p id="delete-questions-title" className="question-delete-modalText">
                             Jeste li sigurni da želite izbrisati označena pitanja?
                         </p>
                         <div className="question-delete-modalActions">
@@ -246,7 +247,7 @@ export default function DeleteQuestionPage() {
                         </div>
                     </div>
                 </div>
-            )}
+            , document.body)}
         </div>
     );
 }
