@@ -1371,7 +1371,7 @@ form{
 }
 
 .app-navbar::before {
-  content: "QUIZ ARENA";
+  content: "KVIZ";
   padding: 0 12px;
   color: var(--link-color);
   font-size: 11px;

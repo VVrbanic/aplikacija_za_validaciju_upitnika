@@ -15,8 +15,8 @@ public class ItemDiscriminationRepository {
     }
 
     public List<ItemDiscriminationDto> getCorrectedItemTotalCorrelations() {
-        String sql = """
-                WITH item_results AS (
+    String sql = """
+                    WITH item_results AS (
                     SELECT u.id AS quiz_id, p.id AS question_id, k.id AS category_id,
                            k.naziv AS category_name, p.pitanje AS question_text,
                            MAX(CASE WHEN o.tocan_odgovor = 1 THEN 1 ELSE 0 END) AS item_score

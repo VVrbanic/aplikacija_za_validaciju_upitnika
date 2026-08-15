@@ -36,7 +36,6 @@ public class AdminResultsRepository {
                     COALESCE(AVG(total_questions), 0) AS average_questions_per_quiz,
                     COALESCE(AVG(solved_percentage), 0) AS average_result_percentage,
                     COALESCE(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY solved_percentage), 0) AS median_percentage,
-                    COALESCE(STDDEV_POP(solved_percentage), 0) AS standard_deviation,
                     COALESCE(MIN(solved_percentage), 0) AS min_percentage,
                     COALESCE(MAX(solved_percentage), 0) AS max_percentage
                 FROM quiz_scores
@@ -50,7 +49,6 @@ public class AdminResultsRepository {
                         rs.getDouble("average_questions_per_quiz"),
                         rs.getDouble("average_result_percentage"),
                         rs.getDouble("median_percentage"),
-                        rs.getDouble("standard_deviation"),
                         rs.getDouble("min_percentage"),
                         rs.getDouble("max_percentage")
                 )

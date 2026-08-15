@@ -173,7 +173,7 @@ export default function RegisterPage() {
                 Registriraj se
             </button>
             <button className="login-button secondary" type="button" onClick={() => navigate("/login")}>
-                Login
+                Povratak na prijavu
             </button>
         </form>
     );

@@ -59,7 +59,7 @@ export default function Login() {
 
     return (
         <div>
-            <div className="title">Login</div>
+            <div className="title">Dobrodošli</div>
 
             {error && (
                 <div style={{ marginBottom: 12 }}>
@@ -92,13 +92,13 @@ export default function Login() {
                     />
                 </div>
 
-                <button type="submit" disabled={loading}>
-                    {loading ? "Prijava..." : "Login"}
+                <button className="login-button" type="submit" disabled={loading}>
+                    {loading ? "Prijava..." : "Prijava"}
                 </button>
             </form>
 
             <p style={{marginTop: 12}}>
-                Nemaš račun? <Link to="/register">Registracija</Link>
+                Nemaš račun? <Link to="/register">Registriraj se</Link>
             </p>
         </div>
     );

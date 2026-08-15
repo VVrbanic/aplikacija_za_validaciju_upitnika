@@ -9,7 +9,6 @@ public class AdminResultsSummaryDto {
     private double averageQuestionsPerQuiz;
     private double averageResultPercentage;
     private double medianPercentage;
-    private double standardDeviation;
     private double minPercentage;
     private double maxPercentage;
 
@@ -19,7 +18,6 @@ public class AdminResultsSummaryDto {
             double averageQuestionsPerQuiz,
             double averageResultPercentage,
             double medianPercentage,
-            double standardDeviation,
             double minPercentage,
             double maxPercentage
     ) {
@@ -28,7 +26,6 @@ public class AdminResultsSummaryDto {
         this.averageQuestionsPerQuiz = averageQuestionsPerQuiz;
         this.averageResultPercentage = averageResultPercentage;
         this.medianPercentage = medianPercentage;
-        this.standardDeviation = standardDeviation;
         this.minPercentage = minPercentage;
         this.maxPercentage = maxPercentage;
     }
