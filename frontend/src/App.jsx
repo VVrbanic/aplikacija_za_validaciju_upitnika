@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import AppNavbar from "./components/AppNavbar";
@@ -16,8 +16,19 @@ import EaseIndexPage from "./pages/EaseIndexPage.jsx";
 import DiscriminationPage from "./pages/DiscriminationPage.jsx";
 import DistractorAnalysisPage from "./pages/DistractorAnalysisPage.jsx";
 import ReliabilityPage from "./pages/ReliabilityPage.jsx";
+import { isAuthenticated } from "./api.js";
 
 const THEME_STORAGE_KEY = "theme";
+
+function ProtectedRoute({ children }) {
+    const location = useLocation();
+
+    if (!isAuthenticated()) {
+        return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+    }
+
+    return children;
+}
 
 function AppContent() {
     const location = useLocation();
@@ -41,17 +52,17 @@ function AppContent() {
                     <Route path="/" element={<WelcomeScreen />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/quiz/statistic" element={<QuizStatistic />} />
-                    <Route path="/quiz/new" element={<QuizSetupPage />} />
-                    <Route path="/question/new" element={<AddQuestionPage />} />
-                    <Route path="/question/delete" element={<DeleteQuestionPage />} />
-                    <Route path="/results-overview" element={<ResultsOverviewPage />} />
-                    <Route path="/item-analysis/ease-index" element={<EaseIndexPage />} />
-                    <Route path="/item-analysis/discrimination" element={<DiscriminationPage />} />
-                    <Route path="/item-analysis/distractor-analysis" element={<DistractorAnalysisPage />} />
-                    <Route path="/reliability" element={<ReliabilityPage />} />
-                    <Route path="/quiz/play" element={<Quiz />} />
-                    <Route path="/user-info" element={<UserInfo />} />
+                    <Route path="/quiz/statistic" element={<ProtectedRoute><QuizStatistic /></ProtectedRoute>} />
+                    <Route path="/quiz/new" element={<ProtectedRoute><QuizSetupPage /></ProtectedRoute>} />
+                    <Route path="/question/new" element={<ProtectedRoute><AddQuestionPage /></ProtectedRoute>} />
+                    <Route path="/question/delete" element={<ProtectedRoute><DeleteQuestionPage /></ProtectedRoute>} />
+                    <Route path="/results-overview" element={<ProtectedRoute><ResultsOverviewPage /></ProtectedRoute>} />
+                    <Route path="/item-analysis/ease-index" element={<ProtectedRoute><EaseIndexPage /></ProtectedRoute>} />
+                    <Route path="/item-analysis/discrimination" element={<ProtectedRoute><DiscriminationPage /></ProtectedRoute>} />
+                    <Route path="/item-analysis/distractor-analysis" element={<ProtectedRoute><DistractorAnalysisPage /></ProtectedRoute>} />
+                    <Route path="/reliability" element={<ProtectedRoute><ReliabilityPage /></ProtectedRoute>} />
+                    <Route path="/quiz/play" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
+                    <Route path="/user-info" element={<ProtectedRoute><UserInfo /></ProtectedRoute>} />
                 </Routes>
             </div>
         </>

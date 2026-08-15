@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { api, getAuthToken } from "../api.js";
 import "../App.css";
 
 export default function Quiz() {
@@ -29,10 +30,13 @@ export default function Quiz() {
                 .map((value) => Number(value))
                 .filter((value) => Number.isInteger(value) && value > 0);
 
-            const res = await axios.get("http://localhost:8080/question/random", {
+            const res = await api.get("/question/random", {
                 params: {
                     limit,
                     ...(categoryIds.length > 0 ? { categoryIds } : {}),
+                },
+                headers: {
+                    Authorization: `Bearer ${getAuthToken()}`,
                 },
             });
             setQuestions(res.data || []);

@@ -1,5 +1,8 @@
 package com.example.zavrsni_rad.dto;
 
+import lombok.Getter;
+
+@Getter
 public class AdminResultsSummaryDto {
     private long userCount;
     private long questionCount;
@@ -28,37 +31,5 @@ public class AdminResultsSummaryDto {
         this.standardDeviation = standardDeviation;
         this.minPercentage = minPercentage;
         this.maxPercentage = maxPercentage;
-    }
-
-    public long getUserCount() {
-        return userCount;
-    }
-
-    public long getQuestionCount() {
-        return questionCount;
-    }
-
-    public double getAverageQuestionsPerQuiz() {
-        return averageQuestionsPerQuiz;
-    }
-
-    public double getAverageResultPercentage() {
-        return averageResultPercentage;
-    }
-
-    public double getMedianPercentage() {
-        return medianPercentage;
-    }
-
-    public double getStandardDeviation() {
-        return standardDeviation;
-    }
-
-    public double getMinPercentage() {
-        return minPercentage;
-    }
-
-    public double getMaxPercentage() {
-        return maxPercentage;
     }
 }

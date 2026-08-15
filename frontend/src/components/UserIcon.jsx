@@ -105,14 +105,14 @@ export default function UserIcon() {
                         onClick={(event) => event.stopPropagation()}
                     >
                         <p id="signout-title" className="signout-text">
-                            Do you really want to sign out?
+                            Jeste li sigurni da se želite odjaviti?
                         </p>
                         <div className="signout-actions">
                             <button type="button" className="qs-btn secondary" onClick={cancelSignOut}>
-                                No
+                                Ne
                             </button>
                             <button type="button" className="qs-btn" onClick={confirmSignOut}>
-                                Yes
+                                Da
                             </button>
                         </div>
                     </div>
