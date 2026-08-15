@@ -1196,13 +1196,13 @@ form{
 .item-analysis-table td:first-child { min-width: 300px; color: var(--text-primary); }
 
 .ease-index-table tbody tr.ease-index-row-alert td {
-  background: rgba(190, 45, 45, 0.16);
-  color: #d95c5c;
+  background: var(--analysis-alert-bg);
+  color: var(--analysis-alert-text);
 }
 
 .ease-index-table tbody tr.ease-index-row-good td {
-  background: rgba(48, 143, 82, 0.16);
-  color: #3d9860;
+  background: var(--analysis-good-bg);
+  color: var(--analysis-good-text);
 }
 
 .ease-index-table tbody tr.ease-index-row-alert td:first-child,

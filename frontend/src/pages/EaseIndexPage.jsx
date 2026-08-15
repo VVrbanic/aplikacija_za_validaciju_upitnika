@@ -187,7 +187,7 @@ export default function EaseIndexPage() {
                                         <XAxis dataKey="categoryName" angle={-40} textAnchor="end" interval={0} height={95} />
                                         <YAxis domain={[0, 1]} />
                                         <Tooltip formatter={(value, _name, item) => [formatIndex(value), `Indeks lakoće (${item?.payload?.correctAnswers ?? 0}/${item?.payload?.totalAnswers ?? 0})`]} />
-                                        <Bar dataKey="easeIndex" name="Indeks lakoće" fill="#3d9860" />
+                                        <Bar dataKey="easeIndex" name="Indeks lakoće" fill="var(--chart-ease-bar)" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>}

@@ -183,7 +183,7 @@ export default function AddQuestionPage() {
                                     rows={5}
                                     value={form.question}
                                     onChange={(event) => updateField("question", event.target.value)}
-                                    placeholder="Upisi pitanje"
+                                    placeholder="Upiši pitanje"
                                     maxLength={1000}
                                 />
                                 <div className="question-editor-meta">

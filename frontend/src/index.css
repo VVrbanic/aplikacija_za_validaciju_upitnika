@@ -24,6 +24,11 @@
   --bg-accent-soft: rgba(68, 235, 255, 0.17);
   --bg-success-soft: rgba(153, 246, 90, 0.18);
   --bg-danger-soft: rgba(255, 111, 145, 0.2);
+  --analysis-alert-bg: rgba(255, 163, 184, 0.2);
+  --analysis-alert-text: #ffc0cf;
+  --analysis-good-bg: rgba(190, 242, 180, 0.18);
+  --analysis-good-text: #c9f7bd;
+  --chart-ease-bar: #b8e8ad;
   --text-primary: #f8f7ff;
   --text-secondary: #c8c2ec;
   --text-muted: #9d96c7;
@@ -61,6 +66,11 @@
   --bg-accent-soft: rgba(16, 201, 219, 0.13);
   --bg-success-soft: rgba(132, 204, 22, 0.15);
   --bg-danger-soft: rgba(251, 113, 133, 0.14);
+  --analysis-alert-bg: rgba(255, 190, 204, 0.5);
+  --analysis-alert-text: #a63f5c;
+  --analysis-good-bg: rgba(198, 239, 190, 0.62);
+  --analysis-good-text: #39764c;
+  --chart-ease-bar: #9bcf91;
   --text-primary: #28174f;
   --text-secondary: #5d5482;
   --text-muted: #7d749d;
