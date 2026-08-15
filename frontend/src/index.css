@@ -24,6 +24,8 @@
   --bg-accent-soft: rgba(68, 235, 255, 0.17);
   --bg-success-soft: rgba(153, 246, 90, 0.18);
   --bg-danger-soft: rgba(255, 111, 145, 0.2);
+  --answer-wrong-bg: #d86b85;
+  --answer-wrong-text: #fff7f9;
   --analysis-alert-bg: rgba(255, 163, 184, 0.2);
   --analysis-alert-text: #ffc0cf;
   --analysis-good-bg: rgba(190, 242, 180, 0.18);
@@ -66,6 +68,8 @@
   --bg-accent-soft: rgba(16, 201, 219, 0.13);
   --bg-success-soft: rgba(132, 204, 22, 0.15);
   --bg-danger-soft: rgba(251, 113, 133, 0.14);
+  --answer-wrong-bg: #df7891;
+  --answer-wrong-text: #ffffff;
   --analysis-alert-bg: rgba(255, 190, 204, 0.5);
   --analysis-alert-text: #a63f5c;
   --analysis-good-bg: rgba(198, 239, 190, 0.62);
@@ -107,11 +111,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   color: var(--text-primary);
-  background:
-    radial-gradient(circle at 8% 10%, rgba(255, 102, 196, 0.2), transparent 22%),
-    radial-gradient(circle at 92% 4%, rgba(66, 224, 255, 0.2), transparent 24%),
-    radial-gradient(circle at 55% 100%, rgba(156, 245, 84, 0.14), transparent 25%),
-    linear-gradient(145deg, var(--bg-page) 0%, var(--bg-page-end) 100%);
+  background: var(--bg-page);
 }
 
 h1 {

@@ -78,6 +78,7 @@ public class QuizStatisticsRepository {
         String sql = """
                 SELECT
                     u.id AS quiz_id,
+                    u.datum_unosa AS solved_at,
                     COUNT(uo.odgovor_id) AS total_answers,
                     COALESCE(SUM(CASE WHEN o.tocan_odgovor = 1 THEN 1 ELSE 0 END), 0) AS correct_answers,
                     ROUND(
@@ -92,8 +93,8 @@ public class QuizStatisticsRepository {
                 JOIN upitnik_odgovori uo ON uo.upitnik_id = u.id
                 JOIN odgovori o ON o.id = uo.odgovor_id
                 WHERE u.korisnici_id = ?
-                GROUP BY u.id
-                ORDER BY u.id
+                GROUP BY u.id, u.datum_unosa
+                ORDER BY u.datum_unosa, u.id
                 """;
 
         return jdbcTemplate.query(
@@ -103,7 +104,8 @@ public class QuizStatisticsRepository {
                         "Kviz #" + rs.getInt("quiz_id"),
                         rs.getInt("total_answers"),
                         rs.getInt("correct_answers"),
-                        rs.getDouble("ease_index")
+                        rs.getDouble("ease_index"),
+                        rs.getObject("solved_at", java.time.LocalDateTime.class)
                 ),
                 userId
         );

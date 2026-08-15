@@ -19,6 +19,14 @@ function clamp01(x) {
     return Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
 }
 
+function formatQuizLabel(quizId, solvedAt) {
+    const datePart = solvedAt?.split("T")[0];
+    if (!datePart) return `Kviz #${quizId}`;
+
+    const [year, month, day] = datePart.split("-");
+    return `${day}.${month}.${year}`;
+}
+
 export default function UserStatistic() {
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [categoryStats, setCategoryStats] = useState([]);
@@ -67,7 +75,7 @@ export default function UserStatistic() {
     const userQuizEaseData = useMemo(() => {
         return quizTrend.map((row) => ({
             quizId: row.quizId,
-            label: row.label,
+            label: formatQuizLabel(row.quizId, row.solvedAt),
             easeIndex: Number(clamp01(row.easeIndex).toFixed(2)),
             totalAnswers: Number(row.totalAnswers ?? 0),
             correctAnswers: Number(row.correctAnswers ?? 0),
@@ -109,10 +117,6 @@ export default function UserStatistic() {
             <div className="charts-header">
                 <div>
                     <h2 className="charts-title">Statistika indeksa lakoće</h2>
-                    <p className="charts-subtitle">
-                        Tablica i histogram prikazuju indeks lakoće po kategorijama prijavljenog korisnika,
-                        a drugi graf trend uspješnosti po svakom riješenom kvizu.
-                    </p>
                 </div>
 
                 <div className="charts-tableWrap">
@@ -217,7 +221,7 @@ export default function UserStatistic() {
                                 />
                                 <Legend />
                                 <Bar dataKey="easeIndex" name="Moj indeks lakoće" fill="#6d5dfc" />
-                                <Bar dataKey="totalEaseIndex" name="Ukupni indeks lakoće" fill="#3d9860" />
+                                <Bar dataKey="totalEaseIndex" name="Ukupni indeks lakoće" fill="var(--chart-ease-bar)" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
@@ -226,7 +230,7 @@ export default function UserStatistic() {
 
             <div className="charts-card">
                 <div className="charts-cardHeader">
-                    <h3 className="charts-cardTitle">Trend indeksa lakoće kvizova (korisnik)</h3>
+                    <h3 className="charts-cardTitle">Trend indeksa lakoće kvizova</h3>
                     <span className="charts-smallStat-grey">
                         Prosjek: <b>{avgQuizEase}</b>
                         {lastQuiz ? (
